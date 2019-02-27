@@ -27,7 +27,12 @@ public class Main {
         
         listaJugadores.add(ll1);
         
-        juego1.comprobarLetra('a', "amar");
+        char letraAux;
+                
+        letraAux= juego1.pedirLetra();
+        
+        juego1.comprobarLetra(letraAux, "amar");
+        
     }
     
 }
