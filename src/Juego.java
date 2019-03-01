@@ -57,7 +57,7 @@ public class Juego {
         {
             if(palabraCorrecta.charAt(i) == letraIngresada)
             {
-                _listaLetras.add(letraIngresada);
+                this._listaLetras.add(letraIngresada);
                 retorno= true;
             }
         }
