@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -7,65 +8,113 @@ import java.util.Scanner;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author capacita_mecon
  */
 public class Juego {
-    
+
     private String _PalabraIngresada;
     private String _PalabraCorrecta;
     private char _letraIngresada;
-    private char _letraCorrecta;
+    private String _letraCorrecta;
     private ArrayList<Jugador> _listaDeJugadores;
-    private ArrayList<Letras> _listaLetras;
-    
-    public Juego()
-    {
+    private String _listaLetras;
+
+    public Juego() {
         this._listaDeJugadores = new ArrayList<>();
-        this._listaLetras = new ArrayList<>();
+        this._listaLetras = "";
     }
-    
-    public ArrayList<Jugador> Jugadores()
-    {
+
+    public ArrayList<Jugador> Jugadores() {
         return _listaDeJugadores;
     }
-    
-    public ArrayList<Letras> Letra()
-    {
+
+    public String Letra() {
         return _listaLetras;
     }
-    
-    char pedirLetra()
-    {
-        char retorno;
-        
-        System.out.println("Ingrese una letra: ");
-        Scanner lector= new Scanner(System.in);//Rserva memoria en el heap
 
-        retorno= lector.next(".").charAt(0);
-        
+    public void setListaDeJugadores(ArrayList<Jugador> _listaDeJugadores) {
+        this._listaDeJugadores = _listaDeJugadores;
+    }
+
+    public void setListaLetras(String _listaLetras) {
+        this._listaLetras = _listaLetras;
+    }
+
+    public String getPalabraIngresada() {
+        return _PalabraIngresada;
+    }
+
+    public void setPalabraIngresada(String _PalabraIngresada) {
+        this._PalabraIngresada = _PalabraIngresada;
+    }
+
+    public String getPalabraCorrecta() {
+        return _PalabraCorrecta;
+    }
+
+    public void setPalabraCorrecta(String _PalabraCorrecta) {
+        this._PalabraCorrecta = _PalabraCorrecta;
+    }
+
+    public char getLetraIngresada() {
+        return _letraIngresada;
+    }
+
+    public void setLetraIngresada(char _letraIngresada) {
+        this._letraIngresada = _letraIngresada;
+    }
+
+    public String getLetraCorrecta() {
+        return _letraCorrecta;
+    }
+
+    public void setLetraCorrecta(String _letraCorrecta) {
+        this._letraCorrecta = _letraCorrecta;
+    }
+
+    char pedirLetra() {
+        char retorno;
+
+        System.out.println("Ingrese una letra: ");
+        Scanner lector = new Scanner(System.in);//Rserva memoria en el heap
+
+        retorno = lector.next(".").charAt(0);
+
         return retorno;
     }
-    
-    boolean comprobarLetra(char letraIngresada, String palabraCorrecta)
-    {
-        boolean retorno= false;
-        
-        for(int i=0; i<palabraCorrecta.length(); i++)
+
+    boolean comprobarLetra(char letraIngresada, String palabraCorrecta) {
+        boolean retorno = false;
+        boolean flag = false;
+
+        for (int i = 0; i < palabraCorrecta.length(); i++) 
         {
-            if(palabraCorrecta.charAt(i) == letraIngresada)
+            if (palabraCorrecta.charAt(i) == letraIngresada) 
             {
-                this._listaLetras.add(letraIngresada);
-                retorno= true;
+                this._PalabraIngresada += letraIngresada;
+                retorno = true;
             }
-        }
         
-        return retorno;
+            else
+            {
+                if(this._PalabraIngresada.charAt(i)!=' ')
+                {
+                    continue;                          
+                }
+                else
+                {
+                    this._PalabraIngresada+=" ";
+                    this._listaLetras+= letraIngresada;
+                }
+            }            
+        }
+
+        return retorno ;
     }
-    
-    public String Mostrar()
+
+public String Mostrar()
     {
         StringBuilder cadena = new StringBuilder();
         
@@ -73,18 +122,15 @@ public class Juego {
         cadena.append("ANGRY CATS").append("\n");
         cadena.append("---------------------").append("\n");
         
-        
+        /*
         for (Letras unaLetra : _listaLetras)
         {
-            if(unaLlamada instanceof Local)
+            if(unaLetra instanceof Letras)
             {
-                cadena.append(((Local) unaLlamada).Mostrar());
-            }
-            else if(unaLlamada instanceof Provincial)
-            {
-                cadena.append(((Provincial) unaLlamada).Mostrar());
+                cadena.append(((Letras) unaLetra).Mostrar());
             }
         }
+        */
         return cadena.toString();
     }
     

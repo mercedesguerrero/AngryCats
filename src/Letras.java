@@ -27,4 +27,10 @@ public class Letras {
         this.letra= letra;
     }
     
+    /*
+    public Mostrar()
+    {
+        
+    }
+    */
 }

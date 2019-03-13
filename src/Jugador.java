@@ -16,6 +16,10 @@ public class Jugador {
     private String _nombre;
     private int _id; 
     
+    public Jugador()
+    {
+        
+    }
     
     public Jugador(String nombre)
     {
