@@ -42,6 +42,10 @@ public class Juego {
         this._listaLetras = _listaLetras;
     }
 
+    public String getListaLetras() {
+        return _listaLetras;
+    }
+
     public String getPalabraIngresada() {
         return _PalabraIngresada;
     }
@@ -114,7 +118,7 @@ public class Juego {
         return retorno ;
     }
 
-public String Mostrar()
+    public String Mostrar()
     {
         StringBuilder cadena = new StringBuilder();
         
@@ -122,15 +126,8 @@ public String Mostrar()
         cadena.append("ANGRY CATS").append("\n");
         cadena.append("---------------------").append("\n");
         
-        /*
-        for (Letras unaLetra : _listaLetras)
-        {
-            if(unaLetra instanceof Letras)
-            {
-                cadena.append(((Letras) unaLetra).Mostrar());
-            }
-        }
-        */
+        //cadena.append("LETRAS INGRESADAS").append("\n")
+        
         return cadena.toString();
     }
     

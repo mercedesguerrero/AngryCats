@@ -44,9 +44,11 @@ public class Main {
         char letraAux;
                 
         letraAux= juego1.pedirLetra();
+        System.out.flush();
         
         if(juego1.comprobarLetra(letraAux, "amar")== true)
         {
+            System.out.println(juego1.Mostrar());
             System.out.println("Adivinaste!");
         }
         else
