@@ -31,7 +31,7 @@ public class Frame1 extends javax.swing.JFrame {
         int anchoMonitor= tamanioMonitor.width;
         
         setSize(anchoMonitor-100, alturaMonitor-100);
-        setLocation(anchoMonitor-1300, alturaMonitor-750);
+        setLocation(anchoMonitor-1550, alturaMonitor-850);
         
         setTitle("AngryCats");
         

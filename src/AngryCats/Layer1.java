@@ -6,6 +6,8 @@
 package AngryCats;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Panel;
@@ -30,7 +32,11 @@ public class Layer1 extends JPanel{
         miLayer3.setLayout(new GridLayout(1, 1));//CENTRO
         miLayer4.setLayout(new GridLayout(1, 2));//SOUTH
         
+              
+        miLayer2.setBackground(Color.pink);
+        
         JLabel texto1= new JLabel("Angry Cats");
+        texto1.setFont(new Font("Aharoni", 1, 32));
         
         miLayer2.add(texto1);
         
@@ -41,11 +47,13 @@ public class Layer1 extends JPanel{
         
         
         
-        JButton BotonJugar= new JButton("jugar");
+        JButton BotonJugar= new JButton("JUGAR");
         
         //DameTexto miEvento= new DameTexto();
         
         //miBoton.addActionListener(miEvento);
+        BotonJugar.setFont(new Font("Aharoni", 1, 32));
+        BotonJugar.setSize(200, 100);
         
         miLayer4.add(BotonJugar);
         
