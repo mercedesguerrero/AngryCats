@@ -5,9 +5,11 @@
  */
 package AngryCats;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.JFrame;
 
 /**
  *
@@ -33,8 +35,14 @@ public class Frame1 extends javax.swing.JFrame {
         
         setTitle("AngryCats");
         
-        Image miIcono= miMonitor.getImage("cat-emoji.jpg");
-        setIconImage(miIcono);
+        Layer1 miLayer= new Layer1();
+
+        add(miLayer);
+        
+        //setVisible(true);
+        
+        //miCapa.setBackground(Color.CYAN);
+        //miFrameImagen.setBackground(Color.GRAY.brighter().brighter());
         
     }
 
@@ -62,7 +70,7 @@ public class Frame1 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     /**
      * @param args the command line arguments
      */
@@ -93,7 +101,12 @@ public class Frame1 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Frame1().setVisible(true);
+                //new Frame1().setVisible(true);
+                Frame1 miFrame= new Frame1();
+                
+                miFrame.setVisible(true);
+                
+                miFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         });
     }
