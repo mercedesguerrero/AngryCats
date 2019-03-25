@@ -23,6 +23,7 @@ public class Frame1 extends javax.swing.JFrame {
     
     public Frame1() 
     {
+        /**
         Toolkit miMonitor= Toolkit.getDefaultToolkit();
         
         Dimension tamanioMonitor= miMonitor.getScreenSize();
@@ -30,8 +31,14 @@ public class Frame1 extends javax.swing.JFrame {
         int alturaMonitor= tamanioMonitor.height;
         int anchoMonitor= tamanioMonitor.width;
         
-        setSize(anchoMonitor-100, alturaMonitor-100);
-        setLocation(anchoMonitor-1550, alturaMonitor-850);
+        //setSize(anchoMonitor-100, alturaMonitor-100);
+        //setLocation(anchoMonitor-1550, alturaMonitor-850);
+        
+        //setSize(1200, 850);*/
+        setSize(1200, 700);
+        setResizable(false);
+        
+        setLocationRelativeTo(null);
         
         setTitle("AngryCats");
         

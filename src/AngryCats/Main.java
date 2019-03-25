@@ -5,6 +5,8 @@
  */
 package AngryCats;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Mechu
@@ -15,7 +17,12 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        Frame1 miFrame= new Frame1();
+                
+        miFrame.setVisible(true);
+                
+        miFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
 }
