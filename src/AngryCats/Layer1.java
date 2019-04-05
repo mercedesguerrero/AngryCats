@@ -30,6 +30,7 @@ public class Layer1 extends JPanel{
     
     private Image _imagenCat;
     private Image _fondo;
+    private Image _tituloJuego;
     JButton boton_cerrar;
     
     @Override
@@ -39,13 +40,20 @@ public class Layer1 extends JPanel{
         
         try{
         _imagenCat= ImageIO.read(new File("nyan_cat.gif"));
+        _fondo= ImageIO.read(new File("space.jpg"));
+        _tituloJuego= ImageIO.read(new File("angryCatsTitulo.png"));
         }
         catch(IOException e)
         {
             System.out.println("No se encontró la imagen");
         }
         
-       /*
+        setLayout(null);
+        
+        g.drawImage(_fondo, 0, 0, null);
+        g.drawImage(_imagenCat, 305, 150, null); //OBSERVER= informar el progreso de conversion de la imagen
+        g.drawImage(_tituloJuego, 90, 20, null);
+        
         boton_cerrar= new JButton("Cerrar");
         boton_cerrar.setFont(new Font("Aharoni", 1, 32));
         //BotonJugar.setSize(200, 100);
@@ -53,18 +61,14 @@ public class Layer1 extends JPanel{
         boton_cerrar.setBorderPainted(false);
         boton_cerrar.setContentAreaFilled(false);
         boton_cerrar.setFocusPainted(false);
-        boton_cerrar.setMaximumSize(new java.awt.Dimension(200, 55));
-        boton_cerrar.setMinimumSize(new java.awt.Dimension(200, 55));
-        boton_cerrar.setPreferredSize(new java.awt.Dimension(200, 55));
         
+        boton_cerrar.setBounds(300, 560, 150, 50);//x,y,tamaño
         add(boton_cerrar);
         
         NewListener oyente= new NewListener();
         
         JButton BotonJugar= new JButton("JUGAR");
-        
         //DameTexto miEvento= new DameTexto();
-        
         //miBoton.addActionListener(miEvento);
         BotonJugar.setFont(new Font("Aharoni", 1, 32));
         //BotonJugar.setSize(200, 100);
@@ -72,16 +76,11 @@ public class Layer1 extends JPanel{
         BotonJugar.setBorderPainted(false);
         BotonJugar.setContentAreaFilled(false);
         BotonJugar.setFocusPainted(false);
-        BotonJugar.setMaximumSize(new java.awt.Dimension(200, 55));
-        BotonJugar.setMinimumSize(new java.awt.Dimension(200, 55));
-        BotonJugar.setPreferredSize(new java.awt.Dimension(200, 55));
+        
         BotonJugar.addActionListener(oyente);
         
+        BotonJugar.setBounds(690, 560, 150, 50);//x,y,tamaño
         add(BotonJugar);
-        
-        */
-        //g.drawImage(_fondo, 0, 0, null);
-        g.drawImage(_imagenCat, 305, 150, null); //OBSERVER= informar el progreso de conversion de la imagen
         
     }
     
