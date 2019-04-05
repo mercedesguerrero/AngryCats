@@ -5,11 +5,21 @@
  */
 package AngryCats;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javafx.scene.layout.BorderPane;
+import javax.swing.Box;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  *
@@ -41,11 +51,42 @@ public class Frame1 extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         setTitle("AngryCats");
+        //setContentPane(new JLabel(new ImageIcon("space.jpg")));
+        //add(new JLabel(new ImageIcon("space.jpg")));
+        //addElementos();
+        
+        JLabel rotulo1= new JLabel("Angry Cats");
+        
+        Box cajaH1= Box.createHorizontalBox();
+        
+        cajaH1.add(rotulo1);
         
         Layer1 miLayer= new Layer1();
-
-        add(miLayer);
         
+        Box cajaH2= Box.createHorizontalBox();
+        
+        cajaH2.add(miLayer);
+        
+        JButton boton_cerrar= new JButton("Cerrar");
+        boton_cerrar.setFont(new Font("Aharoni", 1, 32));
+        
+        JButton BotonJugar= new JButton("JUGAR");
+        BotonJugar.setFont(new Font("Aharoni", 1, 32));
+        
+        Box cajaH3= Box.createHorizontalBox();
+        cajaH3.add(boton_cerrar);
+        cajaH3.add(Box.createHorizontalBox());
+        cajaH3.add(BotonJugar);
+        
+        Box cajaVertical= Box.createVerticalBox();
+        
+        cajaVertical.add(cajaH1);
+        cajaVertical.add(cajaH2);
+        cajaVertical.add(cajaH3);
+        
+        add(cajaVertical, BorderLayout.CENTER);
+        //miLayer.setBackground(new JLabel(new ImageIcon("space.jpg"));    
+        //setContentPane(new JLabel(new ImageIcon("space.jpg")));
         //setVisible(true);
         
         //miCapa.setBackground(Color.CYAN);
@@ -53,6 +94,14 @@ public class Frame1 extends javax.swing.JFrame {
         
     }
 
+    private void addElementos()
+    {
+        JLabel texto1= new JLabel("Angry Cats");
+        texto1.setFont(new Font("Aharoni", 1, 32));
+        texto1.setForeground(new java.awt.Color(255, 255, 255));
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -77,47 +126,8 @@ public class Frame1 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Frame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Frame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Frame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Frame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new Frame1().setVisible(true);
-                Frame1 miFrame= new Frame1();
-                
-                miFrame.setVisible(true);
-                
-                miFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            }
-        });
-    }
-
+        
+            
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
