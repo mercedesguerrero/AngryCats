@@ -20,11 +20,11 @@ public class Frame2 extends javax.swing.JDialog {
     /**
      * Creates new form Frame2
      */
-    public Frame2(JButton botonDeFrame1) {
+    public Frame2() {
         //super();
         
         setTitle("Jugar Angry Cats");
-        
+        setVisible(true);
         setSize(1200, 700);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -34,21 +34,8 @@ public class Frame2 extends javax.swing.JDialog {
         add(new JLabel(new ImageIcon("space.jpg")));
         add(miLayer);
         
-        CierraTodo oyenteCerrar= new CierraTodo();
-        botonDeFrame1.addActionListener(oyenteCerrar);
     }
     
-    private class CierraTodo implements ActionListener
-    {    
-        
-        @Override
-        public void actionPerformed(ActionEvent e) {
-                
-            dispose();
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-    }
 }
 
     /**

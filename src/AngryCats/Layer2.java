@@ -64,10 +64,9 @@ public class Layer2 extends JPanel{
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            Frame2 frame= new Frame2(boton_cerrar);
+            Frame2 frame= new Frame2();
             
-            frame.setVisible(true);
-
+            //frame.setVisible(true);
             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
     }

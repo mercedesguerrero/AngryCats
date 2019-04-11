@@ -22,7 +22,7 @@ public class Main {
                 
         miFrame.setVisible(true);
                 
-        miFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         
     }
     

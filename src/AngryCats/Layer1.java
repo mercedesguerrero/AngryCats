@@ -9,18 +9,24 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import sun.awt.AWTAccessor;
 
 /**
  *
@@ -28,7 +34,6 @@ import javax.swing.JPanel;
  */
 public class Layer1 extends JPanel{
     
-    private Image _imagenCat;
     private Image _fondo;
     private Image _tituloJuego;
     JButton boton_cerrar;
@@ -39,9 +44,9 @@ public class Layer1 extends JPanel{
         super.paintComponent(g);
         
         try{
-        _imagenCat= ImageIO.read(new File("nyan_cat.gif"));
         _fondo= ImageIO.read(new File("space.jpg"));
         _tituloJuego= ImageIO.read(new File("angryCatsTitulo.png"));
+        
         }
         catch(IOException e)
         {
@@ -50,24 +55,12 @@ public class Layer1 extends JPanel{
         
         setLayout(null);
         
-        g.drawImage(_fondo, 0, 0, null);
-        g.drawImage(_imagenCat, 305, 150, null); //OBSERVER= informar el progreso de conversion de la imagen
+        g.drawImage(_fondo, 0, 0, null); //OBSERVER= informar el progreso de conversion de la imagen
         g.drawImage(_tituloJuego, 90, 20, null);
         
-        boton_cerrar= new JButton("Cerrar");
-        boton_cerrar.setFont(new Font("Aharoni", 1, 32));
-        //BotonJugar.setSize(200, 100);
-        boton_cerrar.setBorder(null);
-        boton_cerrar.setBorderPainted(false);
-        boton_cerrar.setContentAreaFilled(false);
-        boton_cerrar.setFocusPainted(false);
+        //NewListener oyente= new NewListener();
         
-        boton_cerrar.setBounds(300, 560, 150, 50);//x,y,tamaño
-        add(boton_cerrar);
-        
-        NewListener oyente= new NewListener();
-        
-        JButton BotonJugar= new JButton("JUGAR");
+        JButton BotonJugar= new JButton(new ImageIcon("jugarBtn.png"));
         //DameTexto miEvento= new DameTexto();
         //miBoton.addActionListener(miEvento);
         BotonJugar.setFont(new Font("Aharoni", 1, 32));
@@ -76,26 +69,32 @@ public class Layer1 extends JPanel{
         BotonJugar.setBorderPainted(false);
         BotonJugar.setContentAreaFilled(false);
         BotonJugar.setFocusPainted(false);
+        BotonJugar.setToolTipText("Juego nuevo");
+        BotonJugar.setActionCommand("Jugar");
+        BotonJugar.addActionListener(new ClickListener()); 
+        //BotonJugar.addActionListener(oyente);
         
-        BotonJugar.addActionListener(oyente);
-        
-        BotonJugar.setBounds(690, 560, 150, 50);//x,y,tamaño
+        BotonJugar.setBounds(660, 470, 350, 200);//x,y,tamaño
         add(BotonJugar);
         
-    }
+        
+        boton_cerrar= new JButton(new ImageIcon("CerrarBtn.png"));
+        boton_cerrar.setFont(new Font("Aharoni", 1, 32));
+        //BotonJugar.setSize(200, 100);
+        boton_cerrar.setBorder(null);
+        boton_cerrar.setBorderPainted(false);
+        boton_cerrar.setContentAreaFilled(false);
+        boton_cerrar.setFocusPainted(false);
+        boton_cerrar.setToolTipText("Salir de Angry Cats");
+        boton_cerrar.setActionCommand("Salir");
+        boton_cerrar.addActionListener(new ClickListener()); 
+        
+        boton_cerrar.setBounds(120, 470, 360, 200);//x,y,tamaño
+        add(boton_cerrar);
+    }    
     
-    private class NewListener implements ActionListener{// CLASE INTERNA
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-            Frame2 frame= new Frame2(boton_cerrar);
-            
-            frame.setVisible(true);
-
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-    }
+}      
+  
     /*
     public Layer1()
     {
@@ -138,4 +137,4 @@ public class Layer1 extends JPanel{
         add(miLayer4);
     }    
     */
-}
+

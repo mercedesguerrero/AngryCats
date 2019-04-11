@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JRootPane;
 
 /**
  *
@@ -27,9 +28,6 @@ import javax.swing.JLabel;
  */
 public class Frame1 extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Frame1
-     */
     
     public Frame1() 
     {
@@ -55,9 +53,9 @@ public class Frame1 extends javax.swing.JFrame {
         Layer1 miLayer= new Layer1();
         //setContentPane(new JLabel(new ImageIcon("space.jpg")));
         //add(new JLabel(new ImageIcon("space.jpg")));
-        //addElementos();
         
         add(miLayer);
+        //addElementos();
         //miLayer.setBackground(new JLabel(new ImageIcon("space.jpg"));    
         //setContentPane(new JLabel(new ImageIcon("space.jpg")));
         //setVisible(true);
@@ -66,12 +64,18 @@ public class Frame1 extends javax.swing.JFrame {
         //miFrameImagen.setBackground(Color.GRAY.brighter().brighter());
         
     }
-
+    
+    public JFrame getFrame()
+    {
+        return this;
+    }
+    
     private void addElementos()
     {
-        JLabel texto1= new JLabel("Angry Cats");
-        texto1.setFont(new Font("Aharoni", 1, 32));
-        texto1.setForeground(new java.awt.Color(255, 255, 255));
+        //JLabel texto1= new JLabel("Angry Cats");
+        //texto1.setFont(new Font("Aharoni", 1, 32));
+        //texto1.setForeground(new java.awt.Color(255, 255, 255));
+        
     }
     
     
