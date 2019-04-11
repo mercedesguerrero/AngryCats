@@ -12,10 +12,10 @@ import javax.swing.JFrame;
  *
  * @author Mechu
  */
-public class Frame1 extends javax.swing.JFrame {
+public class FrameInicial extends javax.swing.JFrame {
 
     
-    public Frame1() 
+    public FrameInicial() 
     {
         /**
         Toolkit miMonitor= Toolkit.getDefaultToolkit();

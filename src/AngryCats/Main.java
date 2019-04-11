@@ -18,7 +18,7 @@ public class Main {
      */
     public static void main(String[] args) {
         
-        Frame1 miFrame= new Frame1();
+        FrameInicial miFrame= new FrameInicial();
                 
         miFrame.setVisible(true);
                 

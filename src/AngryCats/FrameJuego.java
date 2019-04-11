@@ -8,9 +8,9 @@ import javax.swing.JLabel;
  *
  * @author Mechu
  */
-public class Frame2 extends javax.swing.JDialog {
+public class FrameJuego extends javax.swing.JDialog {
 
-    public Frame2() {
+    public FrameJuego() {
         //super();
         
         setTitle("Jugar Angry Cats");

@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class ClickListener implements ActionListener{
     
-    private Frame2 frameJuego;
+    private FrameJuego nuevaPartidaJuego;
     private int respuesta;
 
     public ClickListener()
@@ -23,12 +23,12 @@ public class ClickListener implements ActionListener{
         
     }
 
-    public Frame2 getFrameJuego() {
-        return frameJuego;
+    public FrameJuego getNuevaPartidaJuego() {
+        return nuevaPartidaJuego;
     }
 
-    public void setFrameJuego(Frame2 frameJuego) {
-        this.frameJuego = frameJuego;
+    public void setNuevaPartidaJuego(FrameJuego nuevaPartidaJuego) {
+        this.nuevaPartidaJuego = nuevaPartidaJuego;
     }
     
     
@@ -36,12 +36,11 @@ public class ClickListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         
         String clickeo = e.getActionCommand();
+        nuevaPartidaJuego= new FrameJuego();
         
         if (clickeo.equals("Jugar")) {
             
-            frameJuego= new Frame2();
-            
-            frameJuego.setVisible(true);
+            nuevaPartidaJuego.setVisible(true);
 
             //char adivina = miVista.getSiguienteAdivinanza();
             //miVista.borraAdivina(String.valueOf(adivina));
@@ -62,8 +61,8 @@ public class ClickListener implements ActionListener{
                 respuesta = JOptionPane.showConfirmDialog(null, "Desea abandonar partida?");
                 if (respuesta == 0) {
 
-                    //frameJuego.setVisible(false);
-                    frameJuego.dispose();
+                    nuevaPartidaJuego.setVisible(false);
+                    nuevaPartidaJuego.dispose();
                 } else; 
             }
     }

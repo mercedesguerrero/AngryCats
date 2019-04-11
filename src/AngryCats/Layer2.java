@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 public class Layer2 extends JPanel{
     
     private Image _fondo;
-    Frame2 miFrame;
+    FrameJuego miFrame;
     
     @Override
     public void paintComponent(Graphics g)
