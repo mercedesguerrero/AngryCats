@@ -5,28 +5,15 @@
  */
 package AngryCats;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Panel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import sun.awt.AWTAccessor;
 
 /**
  *
@@ -36,7 +23,6 @@ public class Layer1 extends JPanel{
     
     private Image _fondo;
     private Image _tituloJuego;
-    JButton boton_cerrar;
     
     @Override
     public void paintComponent(Graphics g)
@@ -78,7 +64,7 @@ public class Layer1 extends JPanel{
         add(BotonJugar);
         
         
-        boton_cerrar= new JButton(new ImageIcon("CerrarBtn.png"));
+        JButton boton_cerrar= new JButton(new ImageIcon("CerrarBtn.png"));
         boton_cerrar.setFont(new Font("Aharoni", 1, 32));
         //BotonJugar.setSize(200, 100);
         boton_cerrar.setBorder(null);

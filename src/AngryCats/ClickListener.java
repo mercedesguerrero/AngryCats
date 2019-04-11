@@ -15,11 +15,22 @@ import javax.swing.JOptionPane;
  */
 public class ClickListener implements ActionListener{
     
+    private Frame2 frameJuego;
+    private int respuesta;
 
     public ClickListener()
     {
         
     }
+
+    public Frame2 getFrameJuego() {
+        return frameJuego;
+    }
+
+    public void setFrameJuego(Frame2 frameJuego) {
+        this.frameJuego = frameJuego;
+    }
+    
     
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -28,7 +39,7 @@ public class ClickListener implements ActionListener{
         
         if (clickeo.equals("Jugar")) {
             
-            Frame2 frameJuego= new Frame2();
+            frameJuego= new Frame2();
             
             frameJuego.setVisible(true);
 
@@ -40,12 +51,21 @@ public class ClickListener implements ActionListener{
             //}
 
         } else if (clickeo.equals("Salir")) {
-            int respuesta;
+            
             respuesta = JOptionPane.showConfirmDialog(null, "Desea salir de Angry Cats?");
             if (respuesta == 0) {
                 System.exit(0);      
             } else;
-        }
+            
+        } else if (clickeo.equals("Abandonar_partida")) {
+
+                respuesta = JOptionPane.showConfirmDialog(null, "Desea abandonar partida?");
+                if (respuesta == 0) {
+
+                    //frameJuego.setVisible(false);
+                    frameJuego.dispose();
+                } else; 
+            }
     }
     
 }

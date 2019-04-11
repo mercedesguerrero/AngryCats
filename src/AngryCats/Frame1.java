@@ -5,22 +5,8 @@
  */
 package AngryCats;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javafx.scene.layout.BorderPane;
-import javax.swing.Box;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JRootPane;
+
 
 /**
  *
@@ -45,9 +31,7 @@ public class Frame1 extends javax.swing.JFrame {
         //setSize(1200, 850);*/
         setSize(1200, 700);
         setResizable(false);
-        
-        setLocationRelativeTo(null);
-        
+        setLocationRelativeTo(null); 
         setTitle("AngryCats");
         
         Layer1 miLayer= new Layer1();
@@ -111,7 +95,7 @@ public class Frame1 extends javax.swing.JFrame {
         
         add(cajaVertical, BorderLayout.CENTER);
      */
-    @SuppressWarnings("unchecked")
+   
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

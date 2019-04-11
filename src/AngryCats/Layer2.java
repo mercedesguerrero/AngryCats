@@ -5,15 +5,13 @@
  */
 package AngryCats;
 
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -23,7 +21,7 @@ import javax.swing.JPanel;
 public class Layer2 extends JPanel{
     
     private Image _fondo;
-    JButton boton_cerrar;
+    Frame2 miFrame;
     
     @Override
     public void paintComponent(Graphics g)
@@ -41,33 +39,21 @@ public class Layer2 extends JPanel{
             System.out.println("No se encontró la imagen");
         }
         
+        setLayout(null);
+        
         g.drawImage(_fondo, 0, 0, null);
         
-        boton_cerrar= new JButton("Cerrar");
-        boton_cerrar.setFont(new Font("Aharoni", 1, 32));
-        //BotonJugar.setSize(200, 100);
-        boton_cerrar.setBorder(null);
-        boton_cerrar.setBorderPainted(false);
-        boton_cerrar.setContentAreaFilled(false);
-        boton_cerrar.setFocusPainted(false);
-        boton_cerrar.setMaximumSize(new java.awt.Dimension(200, 1055));
-        boton_cerrar.setMinimumSize(new java.awt.Dimension(200, 1055));
-        boton_cerrar.setPreferredSize(new java.awt.Dimension(200, 1055));
+        JButton boton_salir= new JButton(new ImageIcon("CerrarBtn.png"));
+        boton_salir.setBorder(null);
+        boton_salir.setBorderPainted(false);
+        boton_salir.setContentAreaFilled(false);
+        boton_salir.setFocusPainted(false);
+        boton_salir.setToolTipText("Abandonar partida");
+        boton_salir.setActionCommand("Abandonar_partida");
+        boton_salir.addActionListener(new ClickListener()); 
+        boton_salir.setBounds(120, 470, 360, 200);//x,y,tamaño
+        add(boton_salir);
         
-        add(boton_cerrar);
-        
-        NewListener oyente= new NewListener();
     }
-    
-    private class NewListener implements ActionListener{// CLASE INTERNA
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-            Frame2 frame= new Frame2();
-            
-            //frame.setVisible(true);
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-    }
 }

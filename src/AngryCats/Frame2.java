@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package AngryCats;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 
 /**
@@ -17,9 +10,6 @@ import javax.swing.JLabel;
  */
 public class Frame2 extends javax.swing.JDialog {
 
-    /**
-     * Creates new form Frame2
-     */
     public Frame2() {
         //super();
         
@@ -30,11 +20,10 @@ public class Frame2 extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         
         Layer2 miLayer= new Layer2();
-        
-        add(new JLabel(new ImageIcon("space.jpg")));
         add(miLayer);
         
     }
+    
     
 }
 
@@ -64,7 +53,7 @@ public class Frame2 extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     
-     * @param  the command line arguments
+     * @param
      
     
          Set the Nimbus look and feel
