@@ -8,11 +8,14 @@ package AngryCats;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -23,6 +26,8 @@ public class Layer1 extends JPanel{
     
     private Image _fondo;
     private Image _tituloJuego;
+    private int respuesta;
+    private FrameJuego JugarNuevaPartida;
     
     @Override
     public void paintComponent(Graphics g)
@@ -57,9 +62,17 @@ public class Layer1 extends JPanel{
         BotonJugar.setFocusPainted(false);
         BotonJugar.setToolTipText("Juego nuevo");
         BotonJugar.setActionCommand("Jugar");
-        BotonJugar.addActionListener(new ClickListener()); 
-        //BotonJugar.addActionListener(oyente);
         BotonJugar.setBounds(660, 470, 350, 200);//x,y,tamaño
+        BotonJugar.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                JugarNuevaPartida= new FrameJuego();
+                setVisible(true);
+            }
+        });
+        
         add(BotonJugar);
         
         
@@ -72,9 +85,21 @@ public class Layer1 extends JPanel{
         boton_cerrar.setFocusPainted(false);
         boton_cerrar.setToolTipText("Salir de Angry Cats");
         boton_cerrar.setActionCommand("Salir");
-        boton_cerrar.addActionListener(new ClickListener()); 
-        
         boton_cerrar.setBounds(120, 470, 360, 200);//x,y,tamaño
+        boton_cerrar.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                respuesta = JOptionPane.showConfirmDialog(null, "Desea abandonar partida?");
+                if (respuesta == 0)
+                {
+                    setVisible(false);
+                    System.exit(0);
+                }
+            }
+        });
+        
         add(boton_cerrar);
     }    
     

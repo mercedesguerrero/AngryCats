@@ -99,7 +99,7 @@ public class LogicJuego {
 
     public Diccionario getDiccionarioCats()
     {
-        return diccionarioCats;
+        return this.diccionarioCats;
     }
 
     public void setDiccionarioCats(Diccionario diccionarioCompleto)
