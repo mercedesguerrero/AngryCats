@@ -37,17 +37,19 @@ public class Layer2 extends JPanel {
     
     private Image _fondo;
     private Image _gatitoEnojado1;
+    private Image _globoComic;
     private LogicJuego _miPartidaJuego;
+    private char _letra;
     JTextArea miArea;
     private int respuesta;
     private int cuentaErrores; //cantidad de errores que el usuario cometio hasta el momento
-    private final JLabel _lblCaracterIngresado = new JLabel("Ingrese las letras para adivinar la palabra");
-    private final JLabel _lblMensajeIncorrecto = new JLabel("Letras incorrectas: ");
+    private JLabel _lblCaracterIngresado = new JLabel("Ingrese las letras para adivinar la palabra");
+    private JLabel _lblMensajeIncorrecto = new JLabel("Letras incorrectas: ");
     private JLabel _lblMensaje; 
     private JLabel lblLetraIncorrecta;//letra que no se adivinó correctamente
-    private JLabel lblPalabraAAdivinar;
-    private JLabel lblPalabraSinCompletar;
-    private String palabraCorrecta;
+    //private JLabel lblPalabraAAdivinar;
+    private JLabel lblPalabraSinCompletar;// pone algunas letras de la palabra todavia incompleta
+    private String palabraCorrecta;//palabra random original
     
     private final String sonidoGano = "gano.wav";
     private final String sonidoPerdio = "perdio.wav";
@@ -57,7 +59,15 @@ public class Layer2 extends JPanel {
     public Layer2()
     {
         cuentaErrores= 0;
-        _miPartidaJuego= new LogicJuego();
+        
+        try
+        {
+            iniciarJuego();
+        }
+        catch (DiccionarioException ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }
 
     @Override
@@ -71,6 +81,7 @@ public class Layer2 extends JPanel {
         try{
         _fondo= ImageIO.read(new File("space.jpg"));
         _gatitoEnojado1= ImageIO.read(new File("gatitoEnojado1.png"));
+        _globoComic= ImageIO.read(new File("globo_comic.png"));
         }
         catch(IOException e)
         {
@@ -86,9 +97,9 @@ public class Layer2 extends JPanel {
         setLayout(null);
         
         g.drawImage(_fondo, 0, 0, null);
+        g.drawImage(_fondo, 100, 350, null);
         
-        _miPartidaJuego.Jugar();
-        palabraCorrecta= _miPartidaJuego.getPalabraRandom();
+        palabraCorrecta= "Mercedes";//_miPartidaJuego.getPalabraRandom();
 
         miArea= new JTextArea(8, 20);
         miArea.setLineWrap(true);//No tiene saltos de linea
@@ -114,16 +125,24 @@ public class Layer2 extends JPanel {
   
                     String cadena= String.valueOf(validar).toUpperCase();
                     miArea.setText(cadena);
-                    
-                    _miPartidaJuego.llenarAdivinanza(palabraCorrecta, validar);
-                }
-                else
-                {
-                    getToolkit().beep();
-                    ke.consume();
+           
+                    System.out.println(miArea.getText());
+
+                    for(int i=0; i< palabraCorrecta.length(); i++)
+                    {
+                        if(palabraCorrecta.charAt(i)== validar)
+                        {
+                            _miPartidaJuego.setPalabra_del_usuario(palabraCorrecta);
+                            lblPalabraSinCompletar= new JLabel(_miPartidaJuego.getPalabra_del_usuario());
+                        }
+                        else
+                        {
+                            getToolkit().beep();
+                            ke.consume();
+                        }
+                    }
                 }
             }
-
             @Override
             public void keyPressed(KeyEvent ke) {
                 
@@ -138,19 +157,19 @@ public class Layer2 extends JPanel {
    
         add(miArea);
         
-        lblPalabraAAdivinar= new JLabel(_miPartidaJuego.letrasCorrectasToString());
-        lblPalabraAAdivinar.setBounds(100, 100, 400, 250);
-        lblPalabraAAdivinar.setFont(new Font("Aharoni", Font.BOLD, 86));
-        lblPalabraAAdivinar.setForeground(Color.WHITE);
+        //lblPalabraAAdivinar= new JLabel(_miPartidaJuego.letrasCorrectasToString());
+        //lblPalabraAAdivinar.setBounds(100, 100, 400, 250);
+        //lblPalabraAAdivinar.setFont(new Font("Aharoni", Font.BOLD, 86));
+        //lblPalabraAAdivinar.setForeground(Color.WHITE);
         
-        add(lblPalabraAAdivinar);
+        //add(lblPalabraAAdivinar);
         
-        lblPalabraSinCompletar= new JLabel(_miPartidaJuego.letrasCorrectasToString());
+        lblPalabraSinCompletar= new JLabel(_miPartidaJuego.getPalabra_del_usuario());
         lblPalabraSinCompletar.setBounds(120, 130, 400, 250);
         lblPalabraSinCompletar.setFont(new Font("Aharoni", Font.BOLD, 86));
         lblPalabraSinCompletar.setForeground(Color.WHITE);
         
-        add(lblPalabraAAdivinar);
+        add(lblPalabraSinCompletar);
                 
         
         JButton boton_salir= new JButton(new ImageIcon("SalirBtn.png"));
@@ -201,6 +220,21 @@ public class Layer2 extends JPanel {
 
     }
     
+    private void iniciarJuego() throws DiccionarioException
+    {
+        setMiPartidaJuego(new LogicJuego());
+        lblPalabraSinCompletar.setVisible(true);
+    }
+
+    public void setMiPartidaJuego(LogicJuego _miPartidaJuego) {
+        this._miPartidaJuego = _miPartidaJuego;
+    }
+
+    public char getLetra()
+    {
+        return this._letra;
+    }
+    
     public void borraLetraIngresada(String borra) 
     {
         miArea.setText("");
@@ -215,40 +249,6 @@ public class Layer2 extends JPanel {
             return _miPartidaJuego.getJuegosJugados();
         }
 
-    //comprobar la validez y notificar al usuario
-    public boolean darAdivinanza(char adivina) {
-        
-        boolean _retorno= false;
-        
-        if (!_miPartidaJuego.noQuedanIntentos() && !_miPartidaJuego.palabraAdivinada()) 
-        {
-            _retorno= _miPartidaJuego.llenarAdivinanza(palabraCorrecta, adivina);
-           
-            if (_retorno) 
-            {
-                tieneLetraCorrecta();
-                imprimeLetrasCorrectas(_miPartidaJuego.letrasCorrectasToString());
-            }
-                    else {
-                        tieneLetraIncorrecta();
-                        imprimeLetrasIncorrectas(_miPartidaJuego.letrasIncorrectasToString());
-                    }
-                }
-            
-
-            boolean gana = _miPartidaJuego.palabraAdivinada();
-
-            if (gana) {
-                //gana ABRIR JFRAME GANASTE!!!
-                System.out.println("GANSTE!!!");
-            }
-            else if (_miPartidaJuego.noQuedanIntentos()) {
-                System.out.println("PERDISTE!!!");
-            }
-            
-        return _retorno;
-    }
-    
     private void seEnojaElGatito(Graphics g) 
     {
         g.drawImage(_gatitoEnojado1, 300, 400, null);
@@ -308,12 +308,6 @@ public class Layer2 extends JPanel {
     public void imprimeLetrasIncorrectas(String letrasIncorrectas) 
     {
         this.lblLetraIncorrecta.setText(letrasIncorrectas);
-    }
-    
-    public void imprimeLetrasCorrectas(String letrasCorrectas) 
-    {
-        //letrasCorrectas= 
-        //lblPalabraAAdivinar.setText(letrasCorrectas);
     }
     
     public void adivinanzaRepetida() 

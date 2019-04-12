@@ -17,157 +17,132 @@ import java.util.Random;
  * @author Mechu
  */
 public class LogicJuego {
-    
-    private static ArrayList<String> miDiccionario;
-    private String _PalabraIngresada;
-    private String _PalabraParaAdivinar;
+  
     private String _PalabraCorrecta;
-    private char _letraIngresada;
-    private char[] _letrasCorrectas;
-    private int _valorMaxErrores= 6;
+    private int _cantFallosPermitidos;
     private int _totalIntentosIncorrectos;
-    private char[] _letrasIncorrectas;
+    private String palabra_a_buscar;
+    private String palabra_del_usuario = "";
+    private int _cantFallos;
+    private int _cantAciertos;
 
-    private static int _juegosGanados;
-    private static int _juegosJugados;
+    private Diccionario diccionarioCats;
+
+    private int _juegosGanados;
+    private int _juegosJugados;
     
-    public LogicJuego()
+    public LogicJuego() throws DiccionarioException
     {
-        _totalIntentosIncorrectos = 0;
-        _juegosGanados = 0;
-        _juegosJugados = 0;
-        miDiccionario = new ArrayList<>();
+        this.diccionarioCats = Diccionario.cargarDiccionario(AngryCats.Main.pathDiccionario);
+        nuevaPalabra();
+        this._totalIntentosIncorrectos = 0;
+        this._cantAciertos= 0;
+        this._juegosGanados = 0;
+        this._juegosJugados = 0;
+    }
+    
+    public void nuevaPalabra() throws DiccionarioException
+    {
+        this._cantFallos = 0;
+        this._cantFallosPermitidos = 6;      
+        this.palabra_a_buscar = this.diccionarioCats.getPalabraRandom(); 
+        generaMascara();
+        System.out.println(this.palabra_a_buscar);
+        System.out.println(this.palabra_del_usuario);
     }
 
-    public char[] getLetrasCorrectas() {
-        return _letrasCorrectas;
+    public String getPalabra_a_buscar()
+    {
+        return palabra_a_buscar;
     }
 
-    public char[] getLetrasIncorrectas() {
-        return _letrasIncorrectas;
+    public void setPalabra_a_buscar(String palabra_a_buscar)
+    {
+        this.palabra_a_buscar = palabra_a_buscar;
     }
 
-    public static int getJuegosGanados() {
+    public String getPalabra_del_usuario()
+    {
+        return this.palabra_del_usuario;
+    }
+
+    public void setPalabra_del_usuario(String palabra_del_usuario)
+    {
+        this.palabra_del_usuario = palabra_del_usuario;
+    }
+    
+    public int getJuegosGanados() {
         return _juegosGanados;
     }
 
-    public static void setJuegosGanados(int _juegosGanados) {
-        LogicJuego._juegosGanados = _juegosGanados;
+    public void setJuegosGanados(int _juegosGanados) {
+        this._juegosGanados = _juegosGanados;
     }
 
-    public static int getJuegosJugados() {
-        return _juegosJugados;
+    public int getJuegosJugados() {
+        return this._juegosJugados;
     }
 
-    public static void setJuegosJugados(int _juegosJugados) {
-        LogicJuego._juegosJugados = _juegosJugados;
+    public void setJuegosJugados(int _juegosJugados) {
+        this._juegosJugados = _juegosJugados;
     }
 
-    
-    
-    public void Serializar()
+    public int getCantAciertos()
     {
-        miDiccionario.add("GARFIELD");
-        miDiccionario.add("GRUMPY CAT");
-        miDiccionario.add("SILVESTRE");
-        miDiccionario.add("GOOSE");
-        miDiccionario.add("GATURRO");
-        
-        try{
-            
-            ObjectOutputStream escribiendo_fichero= new ObjectOutputStream(new FileOutputStream("diccionario.xml"));
-            escribiendo_fichero.writeObject(miDiccionario);
-            escribiendo_fichero.close();
-            
-            ObjectInputStream recuperar_fichero= new ObjectInputStream(new FileInputStream("empleado.xml"));
-            String[] diccionarioRecuperado= (String[]) recuperar_fichero.readObject();
-            recuperar_fichero.close();
-            
-            for (String palabra : diccionarioRecuperado) 
-            {
-                System.out.println(palabra);
-            }
-            
-        }catch(Exception e){
-            
-            System.out.println("No se pudo escribir en el archivo");
-        }
-    }
-    
-    public String getPalabraRandom() {
-
-        Random randomP = new Random();
-        _PalabraParaAdivinar = miDiccionario.get(randomP.nextInt(miDiccionario.size()));
-                
-        setLetrasCorrectas(_PalabraParaAdivinar);
-        setLetrasInCorrectas(_PalabraParaAdivinar);
-        _totalIntentosIncorrectos = 0;
-        _juegosJugados++;
-
-        return _PalabraParaAdivinar;
+        return _cantAciertos;
     }
 
-    public void Jugar() 
+    public void setCantAciertos(int cantAciertos)
     {
-        _PalabraCorrecta= getPalabraRandom();
-
-        letrasCorrectasToString();         
-        
+        this._cantAciertos = cantAciertos;
     }
-    
-    public boolean comprobarLetra(char letraIngresada) {
-        boolean retorno = false;
-        boolean flag = false;
 
-        for (int i = 0; i < _PalabraParaAdivinar.length(); i++) 
+    public Diccionario getDiccionarioCats()
+    {
+        return diccionarioCats;
+    }
+
+    public void setDiccionarioCats(Diccionario diccionarioCompleto)
+    {
+        this.diccionarioCats = diccionarioCompleto;
+    }
+
+    private void generaMascara()
+    {
+        this.palabra_del_usuario = new String();
+
+        for (int i = 0; i < this.getPalabra_a_buscar().length(); i++)
         {
-            if (_PalabraParaAdivinar.charAt(i) == letraIngresada) 
-            {
-                this._PalabraIngresada += letraIngresada;
-                System.out.println("acerto");
-                retorno = true;
-            }
-        
-            else
-            {
-                if(this._PalabraIngresada.charAt(i)!=' ')
-                {
-                    continue;                          
-                }
-                else
-                {
-                    this._PalabraIngresada+=" ";
-                    //this._listaLetras+= letraIngresada;
-                }
-            }            
+            this.palabra_del_usuario += " ";
         }
+        
+        System.out.println("Usuario palabra: " + this.getPalabra_del_usuario());
 
-        return retorno ;
     }
-    
-    public boolean llenarAdivinanza(String palabra, char adivina) 
-    {
-        boolean found = false;
 
-        for (int i = 0; i < palabra.length(); i++) 
+    public int BuscaLetraEnPalabra(char letra)
+    {
+        StringBuilder buffer = new StringBuilder(this.palabra_del_usuario);
+        int resp = 1; 
+        String retorno= Character.toString(letra);        
+        
+        for (int i = 0; i < this.getPalabra_a_buscar().length(); i++)
         {
-            if (palabra.charAt(i) == adivina) 
-            {
-                found = true;
-                buscaAciertoEnPalabra(palabra, adivina, i);
+            if (retorno.equalsIgnoreCase(Character.toString(this.getPalabra_a_buscar().charAt(i))))
+            {//la encontro, aca copio la letra en la posicion de la palabra encontrada
+                buffer.setCharAt(i, letra);
+                resp = 0;
             }
         }
-        if (!found) 
-        {
-            addIntentosIncorrectos(adivina);
-        }
-        
-        return found;
+        this.palabra_del_usuario= buffer.toString();
+        System.out.println(this.palabra_del_usuario);
+ 
+        return resp;
     }
     
     public boolean noQuedanIntentos() {
         boolean retorno;
-        if (_totalIntentosIncorrectos == _valorMaxErrores) {
+        if (_totalIntentosIncorrectos == _cantFallosPermitidos) {
             retorno= true;
         }
         else {
@@ -176,92 +151,6 @@ public class LogicJuego {
         
         return retorno;
     }
-    
-    public void setLetrasCorrectas(String palabra) 
-    {
-        _letrasCorrectas = new char[palabra.length()];
-        
-        for (int i = 0; i < _letrasCorrectas.length; i++) 
-        {
-            _letrasCorrectas[i] = '_';
-        }
-    }
-
-    private void setLetrasInCorrectas(String palabra) 
-    {
-        _letrasIncorrectas = new char[_valorMaxErrores];
-
-        for (int i = 0; i < _letrasIncorrectas.length; i++) 
-        {
-            _letrasIncorrectas[i] = ' ';
-        }
-    }
-
-    public void buscaAciertoEnPalabra(String palabra, char adivina, int i) {
-
-        if (0 <= i && i < palabra.length() && palabra.charAt(i) == adivina) {
-            _letrasCorrectas[i] = adivina;
-        }
-
-    }
-
-    public boolean addIntentosIncorrectos(char letraAdivinada) {
-
-        if (_letrasIncorrectas[_totalIntentosIncorrectos] == ' ') 
-        {
-            _letrasIncorrectas[_totalIntentosIncorrectos] = letraAdivinada;
-            _totalIntentosIncorrectos++;
-        }
-
-        if (_letrasIncorrectas[_letrasIncorrectas.length - 1] == ' ' && _totalIntentosIncorrectos< _valorMaxErrores) 
-        {
-            return false; //no todos los intentos posibles fueron usadsos
-        }
-        else {
-            return true; //no tiene mas intentos posibles
-        }
-    }
 
    
-    public boolean palabraAdivinada() {
-
-        boolean comprueba = true;
-
-        for (int i = 0; i < _letrasCorrectas.length; i++) 
-        {
-            if (_letrasCorrectas[i] == '_') 
-            {
-                comprueba = false;
-            }
-        }
-
-        if (comprueba) 
-        {
-            _juegosGanados++;
-        }
-
-        return comprueba;
-    }
-
-    public String letrasIncorrectasToString() {
-        String adivinanzaIncorrecta = "";
-
-        for (int i = 0; i < _letrasIncorrectas.length; i++) 
-        {
-            adivinanzaIncorrecta += _letrasIncorrectas[i] + " ";
-        }
-
-        return adivinanzaIncorrecta;
-    }
-
-    public String letrasCorrectasToString() {
-        String adivinanzaCorrecta = "";
-
-        for (int i = 0; i < _letrasCorrectas.length; i++) 
-        {
-            adivinanzaCorrecta += _letrasCorrectas[i] + "   ";
-        }
-        
-        return adivinanzaCorrecta;
-    }
 }
