@@ -24,6 +24,10 @@ public class Main {
                 
         miFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
+        
+        LogicJuego miJuego= new LogicJuego();
+    
+        
     }
     
 }

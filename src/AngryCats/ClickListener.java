@@ -23,48 +23,24 @@ public class ClickListener implements ActionListener{
         
     }
 
-    public FrameJuego getNuevaPartidaJuego() {
-        return nuevaPartidaJuego;
-    }
-
-    public void setNuevaPartidaJuego(FrameJuego nuevaPartidaJuego) {
-        this.nuevaPartidaJuego = nuevaPartidaJuego;
-    }
-    
-    
     @Override
     public void actionPerformed(ActionEvent e) {
         
         String clickeo = e.getActionCommand();
-        nuevaPartidaJuego= new FrameJuego();
-        
+
         if (clickeo.equals("Jugar")) {
-            
+            nuevaPartidaJuego= new FrameJuego();
             nuevaPartidaJuego.setVisible(true);
-
-            //char adivina = miVista.getSiguienteAdivinanza();
-            //miVista.borraAdivina(String.valueOf(adivina));
-
-            //if (adivina != ' ') {
-                //miControlador.darAdivinanza(adivina);
-            //}
+            
+            
 
         } else if (clickeo.equals("Salir")) {
             
             respuesta = JOptionPane.showConfirmDialog(null, "Desea salir de Angry Cats?");
             if (respuesta == 0) {
                 System.exit(0);      
-            } else;
-            
-        } else if (clickeo.equals("Abandonar_partida")) {
-
-                respuesta = JOptionPane.showConfirmDialog(null, "Desea abandonar partida?");
-                if (respuesta == 0) {
-
-                    nuevaPartidaJuego.setVisible(false);
-                    nuevaPartidaJuego.dispose();
-                } else; 
-            }
+            } 
+        } 
     }
     
 }

@@ -49,11 +49,6 @@ public class FrameInicial extends javax.swing.JFrame {
         
     }
     
-    public JFrame getFrame()
-    {
-        return this;
-    }
-    
     private void addElementos()
     {
         //JLabel texto1= new JLabel("Angry Cats");

@@ -59,7 +59,6 @@ public class Layer1 extends JPanel{
         BotonJugar.setActionCommand("Jugar");
         BotonJugar.addActionListener(new ClickListener()); 
         //BotonJugar.addActionListener(oyente);
-        
         BotonJugar.setBounds(660, 470, 350, 200);//x,y,tamaño
         add(BotonJugar);
         

@@ -1,6 +1,8 @@
 
 package AngryCats;
 
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -20,6 +22,36 @@ public class FrameJuego extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         
         Layer2 miLayer= new Layer2();
+        
+        
+        miLayer.addComponentListener(new ComponentListener()
+        {
+            @Override
+            public void componentResized(ComponentEvent e)
+            {
+              
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e)
+            {
+             
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e)
+            {
+             
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e)
+            {
+                setVisible(false);
+                dispose();
+            }
+        });
+        
         add(miLayer);
         
     }
