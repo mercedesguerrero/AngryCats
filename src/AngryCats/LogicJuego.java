@@ -20,11 +20,10 @@ public class LogicJuego {
   
     private String _PalabraCorrecta;
     private int _cantFallosPermitidos;
-    private int _totalIntentosIncorrectos;
     private String palabra_a_buscar;
     private String palabra_del_usuario = "";
-    private int _cantFallos;
     private int _cantAciertos;
+    private int _cuentaErrores; //cantidad de errores que el usuario cometio hasta el momento
 
     private Diccionario diccionarioCats;
 
@@ -35,16 +34,15 @@ public class LogicJuego {
     {
         this.diccionarioCats = Diccionario.cargarDiccionario(AngryCats.Main.pathDiccionario);
         nuevaPalabra();
-        this._totalIntentosIncorrectos = 0;
         this._cantAciertos= 0;
         this._juegosGanados = 0;
         this._juegosJugados = 0;
+        this._cuentaErrores= 0;
+        this._cantFallosPermitidos = 6;  
     }
     
     public void nuevaPalabra() throws DiccionarioException
-    {
-        this._cantFallos = 0;
-        this._cantFallosPermitidos = 6;      
+    {    
         this.palabra_a_buscar = this.diccionarioCats.getPalabraRandom(); 
         generaMascara();
         System.out.println(this.palabra_a_buscar);
@@ -97,6 +95,23 @@ public class LogicJuego {
         this._cantAciertos = cantAciertos;
     }
 
+    public int getCantFallosPermitidos() {
+        return _cantFallosPermitidos;
+    }
+
+    public void setCantFallosPermitidos(int _cantFallosPermitidos) {
+        this._cantFallosPermitidos = _cantFallosPermitidos;
+    }
+
+    public int getCuentaErrores() {
+        return _cuentaErrores;
+    }
+
+    public void setCuentaErrores(int _cuentaErrores) {
+        this._cuentaErrores = _cuentaErrores;
+    }
+
+    
     public Diccionario getDiccionarioCats()
     {
         return this.diccionarioCats;
@@ -116,36 +131,44 @@ public class LogicJuego {
             this.palabra_del_usuario += " ";
         }
         
-        System.out.println("Usuario palabra: " + this.getPalabra_del_usuario());
+        System.out.println("Palabra del usuario: " + this.getPalabra_del_usuario());
 
     }
 
-    public int BuscaLetraEnPalabra(char letra)
+    public boolean BuscaLetraEnPalabra(char letra)
     {
         StringBuilder buffer = new StringBuilder(this.palabra_del_usuario);
-        int resp = 1; 
-        String retorno= Character.toString(letra);        
+        boolean retorno = false; 
+        String letra_a_validar= Character.toString(letra);        
         
         for (int i = 0; i < this.getPalabra_a_buscar().length(); i++)
         {
-            if (retorno.equalsIgnoreCase(Character.toString(this.getPalabra_a_buscar().charAt(i))))
+            if (letra_a_validar.equalsIgnoreCase(Character.toString(this.getPalabra_a_buscar().charAt(i))))
             {//la encontro, aca copio la letra en la posicion de la palabra encontrada
                 buffer.setCharAt(i, letra);
-                resp = 0;
+                retorno = true;
+            }
+            else
+            {
+                this.setCuentaErrores(this._cuentaErrores +1);                
             }
         }
-        this.palabra_del_usuario= buffer.toString();
-        System.out.println(this.palabra_del_usuario);
+        this.setPalabra_del_usuario(buffer.toString());
+        System.out.println(this.getPalabra_del_usuario());
  
-        return resp;
+        return retorno;
     }
     
-    public boolean noQuedanIntentos() {
+    public boolean noQuedanIntentos() 
+    {
         boolean retorno;
-        if (_totalIntentosIncorrectos == _cantFallosPermitidos) {
+        
+        if (_cuentaErrores == _cantFallosPermitidos) 
+        {
             retorno= true;
         }
-        else {
+        else 
+        {
             retorno= false;
         }
         

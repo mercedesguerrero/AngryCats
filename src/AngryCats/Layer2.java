@@ -44,33 +44,37 @@ public class Layer2 extends JPanel {
     private char _letra;
     JTextArea miArea;
     private int respuesta;
-    private int acerto;
-    private int cuentaErrores; //cantidad de errores que el usuario cometio hasta el momento
     private JLabel _lblCaracterIngresado = new JLabel("Ingrese las letras para adivinar la palabra");
     private JLabel _lblMensajeIncorrecto = new JLabel("Letras incorrectas: ");
     private JLabel _lblMensaje; 
-    private JLabel lblLetrasIncorrectas;//letra que no se adivinó correctamente
+    private JLabel lblLetrasIngresadas;//todas las letras que ingreso el user
     //private JLabel lblPalabraAAdivinar;
     private JLabel lblPalabraSinCompletar;// pone algunas letras de la palabra todavia incompleta
     private String palabraCorrecta;//palabra random original
-    private String letrasIncorrectas;
+    private String letrasIngresadas;
     
     //private final String sonidoGano = "gano.wav";
     //private final String sonidoPerdio = "perdio.wav";
     //private final String sonidoTeclaIncorrecta = "tecla_incorrecta.wav";
     
     public Layer2()
-    {
-        cuentaErrores= 0;
-        
+    {   
         try
         {
             iniciarJuego();
         }
         catch (DiccionarioException ex)
         {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+            System.out.println("Error Diccionario- no se puede iniciar juego ");
         }
+    }
+
+    public String getLetrasIngresadas() {
+        return letrasIngresadas;
+    }
+
+    public void setLetrasIngresadas(String letrasIngresadas) {
+        this.letrasIngresadas = letrasIngresadas;
     }
     
     private void iniciarJuego() throws DiccionarioException
@@ -113,12 +117,12 @@ public class Layer2 extends JPanel {
         
         add(lblPalabraSinCompletar);
         
-        lblLetrasIncorrectas= new JLabel(_miPartidaJuego.getPalabra_del_usuario());
-        lblLetrasIncorrectas.setBounds(50, 330, 400, 250);
-        lblLetrasIncorrectas.setFont(new Font("Aharoni", Font.BOLD, 86));
-        lblLetrasIncorrectas.setForeground(Color.WHITE);
+        lblLetrasIngresadas= new JLabel(_miPartidaJuego.getPalabra_del_usuario());
+        lblLetrasIngresadas.setBounds(50, 330, 400, 250);
+        lblLetrasIngresadas.setFont(new Font("Aharoni", Font.BOLD, 86));
+        lblLetrasIngresadas.setForeground(Color.WHITE);
         
-        add(lblLetrasIncorrectas);
+        add(lblLetrasIngresadas);
        
 
         miArea= new JTextArea(8, 20);
@@ -136,40 +140,43 @@ public class Layer2 extends JPanel {
         miArea.addKeyListener(new KeyListener(){
             @Override
             public void keyTyped(KeyEvent ke) {
-                char validar= ke.getKeyChar();
+                char letra_ingresada= ke.getKeyChar();
+                boolean hay_coincidencia= false;
                 
-                if(Character.isLetter(validar))
+                if(Character.isLetter(letra_ingresada))
                 {
-                    System.out.println("Letra ingresada: " + validar);
+                    System.out.println("Letra ingresada: " + letra_ingresada);
                     ke.consume();
                     
-                    acerto= _miPartidaJuego.BuscaLetraEnPalabra(validar);
+                    hay_coincidencia= _miPartidaJuego.BuscaLetraEnPalabra(letra_ingresada);
   
-                    String cadena= String.valueOf(validar).toUpperCase();
+                    String cadena= String.valueOf(letra_ingresada).toUpperCase();
+                    letrasIngresadas 
                     miArea.setText(cadena);
                     
-                    if(acerto== 0)
+                    if(hay_coincidencia)
                     {
-                        _miPartidaJuego.setPalabra_del_usuario(cadena);
                         lblPalabraSinCompletar= new JLabel(_miPartidaJuego.getPalabra_del_usuario());
                         lblPalabraSinCompletar.setVisible(true);
                     }
                     else
                     {
-                        cuentaErrores ++;
-                        
-                        getToolkit().beep();
                         ke.consume();
                         
-                        if (cuentaErrores> 0) 
+                        if(_miPartidaJuego.getCuentaErrores()>0) 
                         {
                             seEnojaElGatito(g);
-                            lblLetrasIncorrectas.setVisible(true);
-                            letrasIncorrectas= cadena;
+                            lblLetrasIngresadas.setVisible(true);
+                            letrasIngresadas= cadena;
                             imprimeLetrasIncorrectas(palabraCorrecta);
                         }
                     }
                     System.out.println(miArea.getText());
+                }
+                else
+                {
+                    getToolkit().beep();
+                    ke.consume();
                 }
             }
             @Override
@@ -239,6 +246,8 @@ public class Layer2 extends JPanel {
         });
         
         add(ingresarLetra);
+        
+        
 
     }
 
@@ -319,7 +328,7 @@ public class Layer2 extends JPanel {
  
     public void imprimeLetrasIncorrectas(String letrasIncorrectas) 
     {
-        this.lblLetrasIncorrectas.setText(letrasIncorrectas);
+        this.lblLetrasIngresadas.setText(letrasIncorrectas);
     }
     
     public void adivinanzaRepetida() 

@@ -52,6 +52,7 @@ public class FrameJuego extends javax.swing.JDialog {
             }
         });
         
+        miLayer.setVisible(true);
         add(miLayer);
         
     }

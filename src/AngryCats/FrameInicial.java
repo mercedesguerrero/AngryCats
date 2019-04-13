@@ -5,6 +5,8 @@
  */
 package AngryCats;
 
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import javax.swing.JFrame;
 
 
@@ -38,6 +40,34 @@ public class FrameInicial extends javax.swing.JFrame {
         //setContentPane(new JLabel(new ImageIcon("space.jpg")));
         //add(new JLabel(new ImageIcon("space.jpg")));
         
+        miLayer.addComponentListener(new ComponentListener()
+        {
+            @Override
+            public void componentResized(ComponentEvent e)
+            {
+              
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e)
+            {
+             
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e)
+            {
+             
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e)
+            {
+                setVisible(false);
+                dispose();
+            }
+        });
+        
         add(miLayer);
         //addElementos();
         //miLayer.setBackground(new JLabel(new ImageIcon("space.jpg"));    
@@ -48,15 +78,6 @@ public class FrameInicial extends javax.swing.JFrame {
         //miFrameImagen.setBackground(Color.GRAY.brighter().brighter());
         
     }
-    
-    private void addElementos()
-    {
-        //JLabel texto1= new JLabel("Angry Cats");
-        //texto1.setFont(new Font("Aharoni", 1, 32));
-        //texto1.setForeground(new java.awt.Color(255, 255, 255));
-        
-    }
-    
     
     /**
      *  JLabel rotulo1= new JLabel("Angry Cats");
