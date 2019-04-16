@@ -6,7 +6,7 @@
  <void id="ArrayList0" method="get">
   <object idref="Diccionario0"/>
   <void method="add">
-   <string>GRUMPY CAT</string>
+   <string>GRUMPYCAT</string>
   </void>
   <void method="add">
    <string>SILVESTRE</string>
@@ -22,6 +22,9 @@
   </void>
   <void method="add">
    <string>SALEM</string>
+  </void>
+  <void method="add">
+   <string>PUSHEEN</string>
   </void>
   <void method="add">
    <string>KITTY</string>

@@ -33,12 +33,13 @@ public class Diccionario {
     public void AgregarPalabras()
     {
         miDiccionario.add("GARFIELD");
-        miDiccionario.add("GRUMPY CAT");
+        miDiccionario.add("GRUMPYCAT");
         miDiccionario.add("SILVESTRE");
         miDiccionario.add("GOOSE");
         miDiccionario.add("GATURRO");
         miDiccionario.add("FELIX");
         miDiccionario.add("SALEM");
+        miDiccionario.add("PUSHEEN");
         miDiccionario.add("KITTY");
     }
     

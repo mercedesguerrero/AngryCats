@@ -213,21 +213,40 @@ public class LogicJuego {
         return retorno;
     }
     
-    public boolean noQuedanIntentos() 
+    public boolean AdivinoLaPalabra()
     {
-        boolean retorno;
+        boolean retorno= false;
         
-        if (_cuentaErrores == _cantFallosPermitidos) 
+        if(this._palabra_a_adivinar.equalsIgnoreCase(this._palabra_del_usuario))
         {
             retorno= true;
-        }
-        else 
-        {
-            retorno= false;
+            System.out.println("GANASTE!!!");
         }
         
         return retorno;
     }
-
+    
+    public boolean noQuedanIntentos() 
+    {
+        boolean retorno= false;
+        
+        if (this._cuentaErrores > this._cantFallosPermitidos) 
+        {
+            retorno= true;
+        }
+        
+        return retorno;
+    }
+    
+    public boolean QuedanIntentos() 
+    {
+        boolean retorno= false;
+        if (this._cuentaErrores <= this._cantFallosPermitidos) 
+        {
+            retorno= true;
+        }
+        
+        return retorno;
+    }
    
 }

@@ -19,6 +19,8 @@ import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -39,7 +41,7 @@ public class Jugar extends JPanel {
     
     private LogicJuego _miPartidaJuego;
     private Image _fondo;
-    private Image _gatitoEnojado1;
+    private Image _gatitoEnojado;
     private Image _globoComic;
     JTextArea _areaParaIngresarLetra;
     private char letra_ingresada;
@@ -72,6 +74,14 @@ public class Jugar extends JPanel {
         _miPartidaJuego.setPalabra_a_adivinar(palabraCorrecta);
     }
 
+    public Image getGatitoEnojado() {
+        return _gatitoEnojado;
+    }
+
+    public void setGatitoEnojado(String _gatitoEnojado) throws IOException {
+        this._gatitoEnojado = ImageIO.read(new File(_gatitoEnojado));
+    }
+
     public JTextArea getAreaParaIngresarLetra() {
         return _areaParaIngresarLetra;
     }
@@ -95,7 +105,6 @@ public class Jugar extends JPanel {
         
         try{
         _fondo= ImageIO.read(new File("space.jpg"));
-        _gatitoEnojado1= ImageIO.read(new File("gatitoEnojado1.png"));
         _globoComic= ImageIO.read(new File("globo_comic.png"));
         }
         catch(IOException e)
@@ -106,82 +115,13 @@ public class Jugar extends JPanel {
         setLayout(null);
         
         g.drawImage(_fondo, 0, 0, null);
+        g.drawImage(getGatitoEnojado(), 280, 190, null);
         
         Graphics2D palabra= (Graphics2D) g;
         
         palabra.setFont(new Font("Calibri", Font.BOLD, 112));
         palabra.setColor(new Color(65, 228, 195));
-        palabra.drawString(_miPartidaJuego.getPalabra_del_usuario(), 450, 150);
-
-        _areaParaIngresarLetra= new JTextArea(8, 20);
-        _areaParaIngresarLetra.setLineWrap(true);//No tiene saltos de linea
-        _areaParaIngresarLetra.setFont(new Font("Aharoni", Font.BOLD, 86));
-        _areaParaIngresarLetra.setForeground(new Color(38, 74, 90));
-        _areaParaIngresarLetra.setTabSize(1);
-        _areaParaIngresarLetra.setToolTipText("Tipear letra");
-        _areaParaIngresarLetra.setBounds(950, 340, 95, 95);
-        _areaParaIngresarLetra.setBackground(new Color(237, 143, 196));
-        _areaParaIngresarLetra.setRequestFocusEnabled(true);
-        _areaParaIngresarLetra.setAlignmentX(LEFT_ALIGNMENT);
-
-        //miArea.setEditable(false);//no te deja escribir
-        _areaParaIngresarLetra.addKeyListener(new KeyListener(){
-            @Override
-            public void keyTyped(KeyEvent ke) {
-                setLetra_ingresada(ke.getKeyChar());
-                
-                if(_miPartidaJuego.esLetra(letra_ingresada))
-                {
-                    ke.consume();
-                    
-                    letra_ingresada= _miPartidaJuego.Caracter_a_Mayuscula(letra_ingresada);
-                    
-                    if (_miPartidaJuego.LetraEstaEnLaLista(letra_ingresada)) 
-                    {
-                        JOptionPane.showMessageDialog(null, "Ya ingresaste la letra " + letra_ingresada);
-                    }
-                    else
-                    {
-                        _areaParaIngresarLetra.setText(String.valueOf(letra_ingresada));
-                
-                        if(_miPartidaJuego.BuscaLetraEnPalabra(letra_ingresada))
-                        {
-                            JOptionPane.showMessageDialog(null, "Correcto!!!");
-                            _areaParaIngresarLetra.setText("");
-                            repaint();//llama a paint hace update()
-                        }
-                        else
-                        {
-                            _miPartidaJuego.setCuentaErrores(1);
-                            System.out.println("Cantidad de errores: " + _miPartidaJuego.getCuentaErrores());
-                            JOptionPane.showMessageDialog(null, "Incorrecto!!!");
-                            _areaParaIngresarLetra.setText("");
-                            //seEnojaElGatito(g);
-                            repaint();
-                        }
-                    }
-                }
-                else
-                {
-                    getToolkit().beep();
-                    JOptionPane.showMessageDialog(null, "Solo pueden ingresar letras");
-                    ke.consume();
-                    _areaParaIngresarLetra.setText("");   
-                }
-            }
-            @Override
-            public void keyPressed(KeyEvent ke) {
-                
-            }
-
-            @Override
-            public void keyReleased(KeyEvent ke) {
-               
-            }
-            
-        });
-   
-        add(_areaParaIngresarLetra);
+        palabra.drawString(_miPartidaJuego.getPalabra_del_usuario(), 150, 150);
         
         JButton boton_salir= new JButton(new ImageIcon("SalirBtn.png"));
         boton_salir.setBorder(null);
@@ -208,6 +148,97 @@ public class Jugar extends JPanel {
         });
    
         add(boton_salir);
+
+        _areaParaIngresarLetra= new JTextArea(8, 20);
+        _areaParaIngresarLetra.setLineWrap(true);//No tiene saltos de linea
+        _areaParaIngresarLetra.setFont(new Font("Aharoni", Font.BOLD, 96));
+        _areaParaIngresarLetra.setForeground(new Color(38, 74, 90));
+        _areaParaIngresarLetra.setTabSize(1);
+        _areaParaIngresarLetra.setToolTipText("Tipear letra");
+        _areaParaIngresarLetra.setBounds(800, 70, 95, 95);
+        _areaParaIngresarLetra.setBackground(new Color(237, 143, 196));
+        _areaParaIngresarLetra.setRequestFocusEnabled(true);
+        add(_areaParaIngresarLetra);
+        //miArea.setEditable(false);//no te deja escribir
+        
+        if(_miPartidaJuego.QuedanIntentos())
+        {
+            _areaParaIngresarLetra.addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent ke) {
+                setLetra_ingresada(ke.getKeyChar());
+                
+                if(_miPartidaJuego.esLetra(letra_ingresada))
+                {
+                    ke.consume();
+                    
+                    letra_ingresada= _miPartidaJuego.Caracter_a_Mayuscula(letra_ingresada);
+                    
+                    if (_miPartidaJuego.LetraEstaEnLaLista(letra_ingresada)) 
+                    {
+                        JOptionPane.showMessageDialog(null, "Ya ingresaste la letra " + letra_ingresada);
+                    }
+                    else
+                    {
+                        _areaParaIngresarLetra.setText(String.valueOf(letra_ingresada));
+                
+                        if(_miPartidaJuego.BuscaLetraEnPalabra(letra_ingresada))
+                        {
+                            JOptionPane.showMessageDialog(null, "Correcto!!!");
+                            _areaParaIngresarLetra.setText("");
+                            repaint();//llama a paint hace update()
+                            
+                            if(_miPartidaJuego.AdivinoLaPalabra())
+                            {
+                                JOptionPane.showMessageDialog(null, "Ganaste!!!");
+                            }
+                        }
+                        else
+                        {
+                            _miPartidaJuego.setCuentaErrores(1);
+                            try {
+                                seEnojaElGatito();
+                            } catch (IOException ex) {
+                                System.out.println("No se pudo enojar el gatito");
+                            }
+                            //g.drawImage(getGatitoEnojado(), 200, 300, null);
+                            System.out.println("Cantidad de errores: " + _miPartidaJuego.getCuentaErrores());
+                            JOptionPane.showMessageDialog(null, "Incorrecto!!!");
+                            _areaParaIngresarLetra.setText("");
+                            
+                            repaint();
+                        }
+                    }
+                }
+                else
+                {
+                    getToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Solo pueden ingresar letras");
+                    ke.consume();
+                    _areaParaIngresarLetra.setText("");   
+                }
+            }
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+               
+            }
+            
+        });
+         
+        }
+        else
+        {
+            System.out.println("Perdiste!!!");
+            JOptionPane.showMessageDialog(null, "Perdiste!!!");
+            resetear();
+            setVisible(false);   
+            
+        }
         
         
         JButton ingresarLetra= new JButton(new ImageIcon("IngresarBtn.png"));
@@ -246,25 +277,27 @@ public class Jugar extends JPanel {
         return _miPartidaJuego.getJuegosJugados();
     }
 
-    private void seEnojaElGatito(Graphics g) 
+    private void seEnojaElGatito() throws IOException 
     {
-        g.drawImage(_gatitoEnojado1, 300, 400, null);
+        setGatitoEnojado("gatitoEnojado1.png");
+        
+        //g.drawImage(_gatitoEnojado1, 300, 400, null);
         
         if (_miPartidaJuego.getCuentaErrores() > 1) 
         {
-            g.drawImage(_gatitoEnojado1, 310, 410, null);
+            setGatitoEnojado("gatitoEnojado1.png");
             if (_miPartidaJuego.getCuentaErrores() > 2) 
             {
-                g.drawImage(_gatitoEnojado1, 320, 420, null);
+                setGatitoEnojado("gatitoEnojado1.png");
                 if (_miPartidaJuego.getCuentaErrores() > 3) 
                 {
-                    g.drawImage(_gatitoEnojado1, 350, 450, null);
+                    setGatitoEnojado("gatitoEnojado1.png");
                     if (_miPartidaJuego.getCuentaErrores() > 4) 
                     {
-                        g.drawImage(_gatitoEnojado1, 360, 460, null);
+                        setGatitoEnojado("gatitoEnojado1.png");
                         if (_miPartidaJuego.getCuentaErrores() > 5) 
                         {
-                            g.drawImage(_gatitoEnojado1, 370, 470, null);
+                            setGatitoEnojado("gatitoEnojado1.png");
                         }
                     }
                 }
