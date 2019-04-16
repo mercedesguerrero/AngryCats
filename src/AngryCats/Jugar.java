@@ -109,7 +109,7 @@ public class Jugar extends JPanel {
         
         Graphics2D palabra= (Graphics2D) g;
         
-        palabra.setFont(new Font("Calibri", Font.BOLD, 82));
+        palabra.setFont(new Font("Calibri", Font.BOLD, 112));
         palabra.setColor(new Color(65, 228, 195));
         palabra.drawString(_miPartidaJuego.getPalabra_del_usuario(), 450, 150);
 
@@ -122,6 +122,7 @@ public class Jugar extends JPanel {
         _areaParaIngresarLetra.setBounds(950, 340, 95, 95);
         _areaParaIngresarLetra.setBackground(new Color(237, 143, 196));
         _areaParaIngresarLetra.setRequestFocusEnabled(true);
+        _areaParaIngresarLetra.setAlignmentX(LEFT_ALIGNMENT);
 
         //miArea.setEditable(false);//no te deja escribir
         _areaParaIngresarLetra.addKeyListener(new KeyListener(){
@@ -131,21 +132,41 @@ public class Jugar extends JPanel {
                 
                 if(_miPartidaJuego.esLetra(letra_ingresada))
                 {
-                    System.out.println("Letra ingresada: " + letra_ingresada);
                     ke.consume();
                     
                     letra_ingresada= _miPartidaJuego.Caracter_a_Mayuscula(letra_ingresada);
-  
-                    _areaParaIngresarLetra.setText(String.valueOf(letra_ingresada));
-
-                }           
+                    
+                    if (_miPartidaJuego.LetraEstaEnLaLista(letra_ingresada)) 
+                    {
+                        JOptionPane.showMessageDialog(null, "Ya ingresaste la letra " + letra_ingresada);
+                    }
+                    else
+                    {
+                        _areaParaIngresarLetra.setText(String.valueOf(letra_ingresada));
+                
+                        if(_miPartidaJuego.BuscaLetraEnPalabra(letra_ingresada))
+                        {
+                            JOptionPane.showMessageDialog(null, "Correcto!!!");
+                            _areaParaIngresarLetra.setText("");
+                            repaint();//llama a paint hace update()
+                        }
+                        else
+                        {
+                            _miPartidaJuego.setCuentaErrores(1);
+                            System.out.println("Cantidad de errores: " + _miPartidaJuego.getCuentaErrores());
+                            JOptionPane.showMessageDialog(null, "Incorrecto!!!");
+                            _areaParaIngresarLetra.setText("");
+                            //seEnojaElGatito(g);
+                            repaint();
+                        }
+                    }
+                }
                 else
                 {
                     getToolkit().beep();
                     JOptionPane.showMessageDialog(null, "Solo pueden ingresar letras");
                     ke.consume();
-                    _areaParaIngresarLetra.setText("");
-                    
+                    _areaParaIngresarLetra.setText("");   
                 }
             }
             @Override
@@ -203,25 +224,11 @@ public class Jugar extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                _miPartidaJuego.AgregarLetraIngresada(letra_ingresada);
-                
-                if(_miPartidaJuego.BuscaLetraEnPalabra(letra_ingresada))
-                {
-                    repaint();//llama a paint hace update()
-                    _areaParaIngresarLetra.setText("");
-                }
-                else
-                {
-                    _miPartidaJuego.setCuentaErrores(1);
-                    System.out.println("Cantidad de errores: " + _miPartidaJuego.getCuentaErrores());
-                    _areaParaIngresarLetra.setText("");
-                    //seEnojaElGatito(g);
-                }
 
             }
         });
         
-        add(ingresarLetra);
+        //add(ingresarLetra);
 
     }
     

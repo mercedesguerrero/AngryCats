@@ -18,6 +18,15 @@
    <string>GATURRO</string>
   </void>
   <void method="add">
+   <string>FELIX</string>
+  </void>
+  <void method="add">
+   <string>SALEM</string>
+  </void>
+  <void method="add">
+   <string>KITTY</string>
+  </void>
+  <void method="add">
    <string>GARFIELD</string>
   </void>
  </void>

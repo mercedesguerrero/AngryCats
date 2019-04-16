@@ -37,7 +37,9 @@ public class Diccionario {
         miDiccionario.add("SILVESTRE");
         miDiccionario.add("GOOSE");
         miDiccionario.add("GATURRO");
-        
+        miDiccionario.add("FELIX");
+        miDiccionario.add("SALEM");
+        miDiccionario.add("KITTY");
     }
     
     public static void guardarArchivoDiccionario(Diccionario lista, String nombreArchivo)

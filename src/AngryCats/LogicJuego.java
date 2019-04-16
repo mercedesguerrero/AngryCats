@@ -139,6 +139,20 @@ public class LogicJuego {
         this._letrasIngresadasList.add(letraIngresada);
     }
     
+    public boolean LetraEstaEnLaLista(char letraIngresada)
+    {
+        boolean retorno= false;
+        
+        for (Character letra : _letrasIngresadasList) 
+        {
+            if(letra== letraIngresada)
+            {
+                retorno= true;
+            }
+        }
+        return retorno;
+    }
+    
     public char Caracter_a_Mayuscula(char letra)
     {
         char aux;
@@ -167,16 +181,19 @@ public class LogicJuego {
     {
         boolean retorno= false;
         
+        this.AgregarLetraIngresada(letraIngresada);
+        
         for (int i = 0; i < this._palabra_a_adivinar.length(); i++)//-1=????
         {
             System.out.println(" --- \nLetra a buscar: " + _palabra_a_adivinar.charAt(i) );
-            System.out.println("Letra ingresada: " + letraIngresada);                      
+            System.out.println("Letra ingresada: " + letraIngresada);     
                         
             if (this._palabra_a_adivinar.charAt(i) == letraIngresada)
             {  
                 if (this._palabra_del_usuario.charAt(i) != '_')
                 {
                     JOptionPane.showMessageDialog(null, "Ya ingresaste la letra " + letraIngresada);
+                    break;
                 }
                 else
                 {
