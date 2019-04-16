@@ -22,7 +22,7 @@ import javax.swing.JPanel;
  *
  * @author Mechu
  */
-public class Layer1 extends JPanel{
+public class IniciaJuego extends JPanel{
     
     private Image _fondo;
     private Image _tituloJuego;
@@ -69,7 +69,7 @@ public class Layer1 extends JPanel{
             public void actionPerformed(ActionEvent e)
             {
                 JugarNuevaPartida= new FrameJuego();
-                setVisible(true);
+                JugarNuevaPartida.setVisible(true);
             }
         });
         
@@ -94,7 +94,6 @@ public class Layer1 extends JPanel{
                 respuesta = JOptionPane.showConfirmDialog(null, "Desea abandonar partida?");
                 if (respuesta == 0)
                 {
-                    setVisible(false);
                     System.exit(0);
                 }
             }

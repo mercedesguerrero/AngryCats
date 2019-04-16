@@ -5,11 +5,11 @@
         <group>
             <file>file:/D:/AngryCats/src/AngryCats/Main.java</file>
             <file>file:/D:/AngryCats/src/AngryCats/FrameJuego.java</file>
+            <file>file:/D:/AngryCats/src/AngryCats/Jugar.java</file>
             <file>file:/D:/AngryCats/src/AngryCats/DiccionarioException.java</file>
-            <file>file:/D:/AngryCats/src/AngryCats/Layer1.java</file>
+            <file>file:/D:/AngryCats/src/AngryCats/IniciaJuego.java</file>
             <file>file:/D:/AngryCats/src/AngryCats/LogicJuego.java</file>
             <file>file:/D:/AngryCats/src/AngryCats/Diccionario.java</file>
-            <file>file:/D:/AngryCats/src/AngryCats/Layer2.java</file>
             <file>file:/D:/AngryCats/src/AngryCats/FrameInicial.java</file>
         </group>
     </open-files>

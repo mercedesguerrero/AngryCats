@@ -6,9 +6,11 @@
 package AngryCats;
 
 import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.Container;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,8 +19,6 @@ import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -35,64 +35,63 @@ import javax.swing.JTextArea;
  *
  * @author Mechu
  */
-public class Layer2 extends JPanel {
+public class Jugar extends JPanel {
     
+    private LogicJuego _miPartidaJuego;
     private Image _fondo;
     private Image _gatitoEnojado1;
     private Image _globoComic;
-    private LogicJuego _miPartidaJuego;
-    private char _letra;
-    JTextArea miArea;
-    private int respuesta;
-    private JLabel _lblCaracterIngresado = new JLabel("Ingrese las letras para adivinar la palabra");
-    private JLabel _lblMensajeIncorrecto = new JLabel("Letras incorrectas: ");
-    private JLabel _lblMensaje; 
-    private JLabel lblLetrasIngresadas;//todas las letras que ingreso el user
-    //private JLabel lblPalabraAAdivinar;
-    private JLabel lblPalabraSinCompletar;// pone algunas letras de la palabra todavia incompleta
+    JTextArea _areaParaIngresarLetra;
+    private char letra_ingresada;
     private String palabraCorrecta;//palabra random original
     private String letrasIngresadas;
-    
+   
     //private final String sonidoGano = "gano.wav";
     //private final String sonidoPerdio = "perdio.wav";
     //private final String sonidoTeclaIncorrecta = "tecla_incorrecta.wav";
     
-    public Layer2()
+    public Jugar()
     {   
         try
         {
             iniciarJuego();
+            
         }
         catch (DiccionarioException ex)
         {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             System.out.println("Error Diccionario- no se puede iniciar juego ");
         }
-    }
-
-    public String getLetrasIngresadas() {
-        return letrasIngresadas;
-    }
-
-    public void setLetrasIngresadas(String letrasIngresadas) {
-        this.letrasIngresadas = letrasIngresadas;
     }
     
     private void iniciarJuego() throws DiccionarioException
     {
         this._miPartidaJuego= new LogicJuego();
-        lblPalabraSinCompletar.setVisible(true);
         
-        palabraCorrecta= _miPartidaJuego.getPalabra_a_buscar();
-        _miPartidaJuego.setPalabra_a_buscar(palabraCorrecta);
+        palabraCorrecta= _miPartidaJuego.getPalabra_a_adivinar();
+        _miPartidaJuego.setPalabra_a_adivinar(palabraCorrecta);
+    }
+
+    public JTextArea getAreaParaIngresarLetra() {
+        return _areaParaIngresarLetra;
+    }
+
+    public void setAreaParaIngresarLetra(JTextArea _areaParaIngresarLetra) {
+        this._areaParaIngresarLetra = _areaParaIngresarLetra;
+    }
+
+    public char getLetra_ingresada() {
+        return letra_ingresada;
+    }
+
+    public void setLetra_ingresada(char letra_ingresada) {
+        this.letra_ingresada = letra_ingresada;
     }
     
     @Override
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        
-        //g.drawRect(50, 50, 200, 200);
-        //g.drawLine(100, 100, 300, 200);
         
         try{
         _fondo= ImageIO.read(new File("space.jpg"));
@@ -102,81 +101,51 @@ public class Layer2 extends JPanel {
         catch(IOException e)
         {
             System.out.println("No se encontró la imagen");
-            e.printStackTrace();
         }
         
         setLayout(null);
         
         g.drawImage(_fondo, 0, 0, null);
-        //g.drawImage(_fondo, 100, 350, null);
         
-        lblPalabraSinCompletar= new JLabel(_miPartidaJuego.getPalabra_del_usuario());
-        lblPalabraSinCompletar.setBounds(120, 130, 400, 250);
-        lblPalabraSinCompletar.setFont(new Font("Aharoni", Font.BOLD, 86));
-        lblPalabraSinCompletar.setForeground(Color.WHITE);
+        Graphics2D palabra= (Graphics2D) g;
         
-        add(lblPalabraSinCompletar);
-        
-        lblLetrasIngresadas= new JLabel(_miPartidaJuego.getPalabra_del_usuario());
-        lblLetrasIngresadas.setBounds(50, 330, 400, 250);
-        lblLetrasIngresadas.setFont(new Font("Aharoni", Font.BOLD, 86));
-        lblLetrasIngresadas.setForeground(Color.WHITE);
-        
-        add(lblLetrasIngresadas);
-       
+        palabra.setFont(new Font("Calibri", Font.BOLD, 82));
+        palabra.setColor(new Color(65, 228, 195));
+        palabra.drawString(_miPartidaJuego.getPalabra_del_usuario(), 450, 150);
 
-        miArea= new JTextArea(8, 20);
-        miArea.setLineWrap(true);//No tiene saltos de linea
-        miArea.setFont(new Font("Aharoni", Font.BOLD, 86));
-        miArea.setForeground(new Color(38, 74, 90));
-        miArea.setTabSize(1);
-        miArea.setToolTipText("Tipear letra");
-        miArea.setBounds(950, 340, 95, 95);
-        miArea.setBackground(new Color(237, 143, 196));
-        //miArea.setPreferredSize(new Dimension (150,160));
-        miArea.setRequestFocusEnabled(true);
+        _areaParaIngresarLetra= new JTextArea(8, 20);
+        _areaParaIngresarLetra.setLineWrap(true);//No tiene saltos de linea
+        _areaParaIngresarLetra.setFont(new Font("Aharoni", Font.BOLD, 86));
+        _areaParaIngresarLetra.setForeground(new Color(38, 74, 90));
+        _areaParaIngresarLetra.setTabSize(1);
+        _areaParaIngresarLetra.setToolTipText("Tipear letra");
+        _areaParaIngresarLetra.setBounds(950, 340, 95, 95);
+        _areaParaIngresarLetra.setBackground(new Color(237, 143, 196));
+        _areaParaIngresarLetra.setRequestFocusEnabled(true);
 
         //miArea.setEditable(false);//no te deja escribir
-        miArea.addKeyListener(new KeyListener(){
+        _areaParaIngresarLetra.addKeyListener(new KeyListener(){
             @Override
             public void keyTyped(KeyEvent ke) {
-                char letra_ingresada= ke.getKeyChar();
-                boolean hay_coincidencia= false;
+                setLetra_ingresada(ke.getKeyChar());
                 
-                if(Character.isLetter(letra_ingresada))
+                if(_miPartidaJuego.esLetra(letra_ingresada))
                 {
                     System.out.println("Letra ingresada: " + letra_ingresada);
                     ke.consume();
                     
-                    hay_coincidencia= _miPartidaJuego.BuscaLetraEnPalabra(letra_ingresada);
+                    letra_ingresada= _miPartidaJuego.Caracter_a_Mayuscula(letra_ingresada);
   
-                    String cadena= String.valueOf(letra_ingresada).toUpperCase();
-                    letrasIngresadas 
-                    miArea.setText(cadena);
-                    
-                    if(hay_coincidencia)
-                    {
-                        lblPalabraSinCompletar= new JLabel(_miPartidaJuego.getPalabra_del_usuario());
-                        lblPalabraSinCompletar.setVisible(true);
-                    }
-                    else
-                    {
-                        ke.consume();
-                        
-                        if(_miPartidaJuego.getCuentaErrores()>0) 
-                        {
-                            seEnojaElGatito(g);
-                            lblLetrasIngresadas.setVisible(true);
-                            letrasIngresadas= cadena;
-                            imprimeLetrasIncorrectas(palabraCorrecta);
-                        }
-                    }
-                    System.out.println(miArea.getText());
-                }
+                    _areaParaIngresarLetra.setText(String.valueOf(letra_ingresada));
+
+                }           
                 else
                 {
                     getToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Solo pueden ingresar letras");
                     ke.consume();
+                    _areaParaIngresarLetra.setText("");
+                    
                 }
             }
             @Override
@@ -191,15 +160,7 @@ public class Layer2 extends JPanel {
             
         });
    
-        add(miArea);
-        
-        //lblPalabraAAdivinar= new JLabel(_miPartidaJuego.letrasCorrectasToString());
-        //lblPalabraAAdivinar.setBounds(100, 100, 400, 250);
-        //lblPalabraAAdivinar.setFont(new Font("Aharoni", Font.BOLD, 86));
-        //lblPalabraAAdivinar.setForeground(Color.WHITE);
-        
-        //add(lblPalabraAAdivinar);
-                
+        add(_areaParaIngresarLetra);
         
         JButton boton_salir= new JButton(new ImageIcon("SalirBtn.png"));
         boton_salir.setBorder(null);
@@ -215,7 +176,9 @@ public class Layer2 extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                respuesta = JOptionPane.showConfirmDialog(null, "Desea abandonar partida?");
+                int respuesta;
+                
+                respuesta = JOptionPane.showConfirmDialog(null, "Desea abandonar la partida?");
                 if (respuesta == 0) {
                     resetear();
                     setVisible(false);    
@@ -240,25 +203,31 @@ public class Layer2 extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e)
             {
+                _miPartidaJuego.AgregarLetraIngresada(letra_ingresada);
                 
+                if(_miPartidaJuego.BuscaLetraEnPalabra(letra_ingresada))
+                {
+                    repaint();//llama a paint hace update()
+                    _areaParaIngresarLetra.setText("");
+                }
+                else
+                {
+                    _miPartidaJuego.setCuentaErrores(1);
+                    System.out.println("Cantidad de errores: " + _miPartidaJuego.getCuentaErrores());
+                    _areaParaIngresarLetra.setText("");
+                    //seEnojaElGatito(g);
+                }
 
             }
         });
         
         add(ingresarLetra);
-        
-        
 
-    }
-
-    public char getLetra()
-    {
-        return this._letra;
     }
     
-    public void borraLetraIngresada(String borra) 
+    public void borraLetraIngresada() 
     {
-        miArea.setText("");
+        this._areaParaIngresarLetra.setText("");
     }
 
     public int getJuegosGanados() 
@@ -266,27 +235,27 @@ public class Layer2 extends JPanel {
         return _miPartidaJuego.getJuegosGanados();
     }
 
-        public int getJuegosJugados() {
-            return _miPartidaJuego.getJuegosJugados();
-        }
+    public int getJuegosJugados() {
+        return _miPartidaJuego.getJuegosJugados();
+    }
 
     private void seEnojaElGatito(Graphics g) 
     {
         g.drawImage(_gatitoEnojado1, 300, 400, null);
         
-        if (cuentaErrores > 1) 
+        if (_miPartidaJuego.getCuentaErrores() > 1) 
         {
             g.drawImage(_gatitoEnojado1, 310, 410, null);
-            if (cuentaErrores > 2) 
+            if (_miPartidaJuego.getCuentaErrores() > 2) 
             {
                 g.drawImage(_gatitoEnojado1, 320, 420, null);
-                if (cuentaErrores > 3) 
+                if (_miPartidaJuego.getCuentaErrores() > 3) 
                 {
                     g.drawImage(_gatitoEnojado1, 350, 450, null);
-                    if (cuentaErrores > 4) 
+                    if (_miPartidaJuego.getCuentaErrores() > 4) 
                     {
                         g.drawImage(_gatitoEnojado1, 360, 460, null);
-                        if (cuentaErrores > 5) 
+                        if (_miPartidaJuego.getCuentaErrores() > 5) 
                         {
                             g.drawImage(_gatitoEnojado1, 370, 470, null);
                         }
@@ -296,22 +265,14 @@ public class Layer2 extends JPanel {
         }
     }
 
-    public void RespuestaIncorrecta() 
-    {
-        cuentaErrores++;
-    }
-
     public void tieneLetraCorrecta() 
     {
-        _lblMensaje.setText("Correcta!!");
         System.out.println("Correcta!!");
         //haceSonido(sonidoTeclaCorrecta);
     }
     
     public void tieneLetraIncorrecta() 
     {
-        _lblMensaje.setText("Incorrecta!!");
-        RespuestaIncorrecta();
         System.out.println("Incorrecta!!");
         //haceSonido(sonidoTeclaIncorrecta);
     }
@@ -323,23 +284,23 @@ public class Layer2 extends JPanel {
             clip.open(audioInputStream);
             clip.start();
         } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
+            System.out.println("No se encontró sonido");
         }
     }
  
     public void imprimeLetrasIncorrectas(String letrasIncorrectas) 
     {
-        this.lblLetrasIngresadas.setText(letrasIncorrectas);
+      
     }
     
     public void adivinanzaRepetida() 
     {
-        _lblMensaje.setText("Ya ingresaste esta letra!");
+        //_lblMensaje.setText("Ya ingresaste esta letra!");
     }
 
     public void resetear() 
     {
-        cuentaErrores = 0;
-     
+        _miPartidaJuego.setCuentaErrores(0); 
     }
 
 }

@@ -21,7 +21,7 @@ public class FrameJuego extends javax.swing.JDialog {
         setResizable(false);
         setLocationRelativeTo(null);
         
-        Layer2 miLayer= new Layer2();
+        Jugar miLayer= new Jugar();
         
         
         miLayer.addComponentListener(new ComponentListener()
@@ -51,8 +51,7 @@ public class FrameJuego extends javax.swing.JDialog {
                 dispose();
             }
         });
-        
-        miLayer.setVisible(true);
+
         add(miLayer);
         
     }

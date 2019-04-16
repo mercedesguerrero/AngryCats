@@ -36,37 +36,10 @@ public class FrameInicial extends javax.swing.JFrame {
         setLocationRelativeTo(null); 
         setTitle("AngryCats");
         
-        Layer1 miLayer= new Layer1();
+        IniciaJuego miLayer= new IniciaJuego();
         //setContentPane(new JLabel(new ImageIcon("space.jpg")));
         //add(new JLabel(new ImageIcon("space.jpg")));
         
-        miLayer.addComponentListener(new ComponentListener()
-        {
-            @Override
-            public void componentResized(ComponentEvent e)
-            {
-              
-            }
-
-            @Override
-            public void componentMoved(ComponentEvent e)
-            {
-             
-            }
-
-            @Override
-            public void componentShown(ComponentEvent e)
-            {
-             
-            }
-
-            @Override
-            public void componentHidden(ComponentEvent e)
-            {
-                setVisible(false);
-                dispose();
-            }
-        });
         
         add(miLayer);
         //addElementos();

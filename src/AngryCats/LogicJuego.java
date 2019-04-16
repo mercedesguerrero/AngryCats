@@ -11,6 +11,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -18,55 +20,53 @@ import java.util.Random;
  */
 public class LogicJuego {
   
-    private String _PalabraCorrecta;
     private int _cantFallosPermitidos;
-    private String palabra_a_buscar;
-    private String palabra_del_usuario = "";
+    private String _palabra_a_adivinar;
+    private String _palabra_del_usuario;
     private int _cantAciertos;
     private int _cuentaErrores; //cantidad de errores que el usuario cometio hasta el momento
-
     private Diccionario diccionarioCats;
-
+    private int respuesta;
+    JTextArea _areaParaIngresarLetra;
+    private final ArrayList<Character> _letrasIngresadasList;
     private int _juegosGanados;
     private int _juegosJugados;
     
     public LogicJuego() throws DiccionarioException
     {
         this.diccionarioCats = Diccionario.cargarDiccionario(AngryCats.Main.pathDiccionario);
-        nuevaPalabra();
+        this._palabra_del_usuario= "";
         this._cantAciertos= 0;
+        this._cuentaErrores= 0;
+        this._cantFallosPermitidos= 6;  
+        this._letrasIngresadasList = new ArrayList<>();
         this._juegosGanados = 0;
         this._juegosJugados = 0;
-        this._cuentaErrores= 0;
-        this._cantFallosPermitidos = 6;  
+        nuevaPalabra();
     }
     
-    public void nuevaPalabra() throws DiccionarioException
+    private void nuevaPalabra() throws DiccionarioException
     {    
-        this.palabra_a_buscar = this.diccionarioCats.getPalabraRandom(); 
-        generaMascara();
-        System.out.println(this.palabra_a_buscar);
-        System.out.println(this.palabra_del_usuario);
+        this._palabra_a_adivinar = this.diccionarioCats.getPalabraRandom();   
+        generarMascara();
     }
 
-    public String getPalabra_a_buscar()
+    public String getPalabra_a_adivinar()
     {
-        return palabra_a_buscar;
+        return _palabra_a_adivinar;
     }
 
-    public void setPalabra_a_buscar(String palabra_a_buscar)
+    public void setPalabra_a_adivinar(String _palabra_a_adivinar)
     {
-        this.palabra_a_buscar = palabra_a_buscar;
+        this._palabra_a_adivinar= _palabra_a_adivinar;
     }
 
-    public String getPalabra_del_usuario()
-    {
-        return this.palabra_del_usuario;
+    public String getPalabra_del_usuario() {
+        return _palabra_del_usuario;
     }
 
-    public void setPalabra_del_usuario(String palabra_del_usuario)
-    {
-        this.palabra_del_usuario = palabra_del_usuario;
+    public void setPalabra_del_usuario(String _palabra_del_usuario) {
+        this._palabra_del_usuario = _palabra_del_usuario;
     }
     
     public int getJuegosGanados() {
@@ -107,8 +107,8 @@ public class LogicJuego {
         return _cuentaErrores;
     }
 
-    public void setCuentaErrores(int _cuentaErrores) {
-        this._cuentaErrores = _cuentaErrores;
+    public void setCuentaErrores(int error) {
+        this._cuentaErrores += error;
     }
 
     
@@ -121,41 +121,78 @@ public class LogicJuego {
     {
         this.diccionarioCats = diccionarioCompleto;
     }
-
-    private void generaMascara()
+    
+    public boolean esLetra(char letra)
     {
-        this.palabra_del_usuario = new String();
-
-        for (int i = 0; i < this.getPalabra_a_buscar().length(); i++)
+        boolean retorno= false;
+        
+        if(Character.isLetter(letra))
         {
-            this.palabra_del_usuario += " ";
+            retorno=true;
         }
         
-        System.out.println("Palabra del usuario: " + this.getPalabra_del_usuario());
-
+        return retorno;
+    }
+    
+    public void AgregarLetraIngresada(char letraIngresada)
+    {
+        this._letrasIngresadasList.add(letraIngresada);
+    }
+    
+    public char Caracter_a_Mayuscula(char letra)
+    {
+        char aux;
+        
+        String cadenaAux= String.valueOf(letra).toUpperCase();
+        aux= cadenaAux.charAt(0);
+        
+        return aux;
     }
 
-    public boolean BuscaLetraEnPalabra(char letra)
+    private void generarMascara()
     {
-        StringBuilder buffer = new StringBuilder(this.palabra_del_usuario);
-        boolean retorno = false; 
-        String letra_a_validar= Character.toString(letra);        
-        
-        for (int i = 0; i < this.getPalabra_a_buscar().length(); i++)
+        String caracteres= "";
+        System.out.println("Cantidad de letras a adivinar: " + this._palabra_a_adivinar.length());
+        System.out.println("Palabra a adivinar: " + this._palabra_a_adivinar);
+
+        for (int i = 0; i < this._palabra_a_adivinar.length(); i++)
         {
-            if (letra_a_validar.equalsIgnoreCase(Character.toString(this.getPalabra_a_buscar().charAt(i))))
-            {//la encontro, aca copio la letra en la posicion de la palabra encontrada
-                buffer.setCharAt(i, letra);
-                retorno = true;
-            }
-            else
-            {
-                this.setCuentaErrores(this._cuentaErrores +1);                
+            caracteres+= "_";
+        }
+        
+        this.setPalabra_del_usuario(caracteres);
+    }
+
+    public boolean BuscaLetraEnPalabra(char letraIngresada)
+    {
+        boolean retorno= false;
+        
+        for (int i = 0; i < this._palabra_a_adivinar.length(); i++)//-1=????
+        {
+            System.out.println(" --- \nLetra a buscar: " + _palabra_a_adivinar.charAt(i) );
+            System.out.println("Letra ingresada: " + letraIngresada);                      
+                        
+            if (this._palabra_a_adivinar.charAt(i) == letraIngresada)
+            {  
+                if (this._palabra_del_usuario.charAt(i) != '_')
+                {
+                    JOptionPane.showMessageDialog(null, "Ya ingresaste la letra " + letraIngresada);
+                }
+                else
+                {
+                    retorno= true;
+                    
+                    StringBuilder aux = new StringBuilder(this.getPalabra_del_usuario());
+                    aux.setCharAt(i, letraIngresada);
+                    
+                    setPalabra_del_usuario(aux.toString());
+               
+                    System.out.println("Letras a adivinar seteadas: " + getPalabra_del_usuario());
+
+                }
             }
         }
-        this.setPalabra_del_usuario(buffer.toString());
-        System.out.println(this.getPalabra_del_usuario());
- 
+        
         return retorno;
     }
     
