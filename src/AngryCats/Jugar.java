@@ -27,6 +27,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -48,10 +49,16 @@ public class Jugar extends JPanel {
     private String palabraCorrecta;//palabra random original
     private String letrasIngresadas;
     private FrameGif frame1;
-   
-    //private final String sonidoGano = "gano.wav";
-    //private final String sonidoPerdio = "perdio.wav";
-    //private final String sonidoTeclaIncorrecta = "tecla_incorrecta.wav";
+    private ImageIcon _nyanCat;
+    private ImageIcon _happyCatDance;
+    private ImageIcon _catNoNo;
+    private ImageIcon _mCat;
+    private ImageIcon _isNotAGameCat;
+    private ImageIcon _catTyping;
+    private ImageIcon _catComputer;
+    private final String sonidoGano = "Piipiripipipiiii.wav";
+    private final String sonidoPerdio = "angryCatSonido.wav";
+    private final String sonidoMiau = "miau.wav";
     
     public Jugar()
     {   
@@ -107,6 +114,13 @@ public class Jugar extends JPanel {
         try{
         _fondo= ImageIO.read(new File("space2.jpg"));
         _globoComic= ImageIO.read(new File("globo_comic.png"));
+        _nyanCat= new ImageIcon("nyanKitten.gif");
+        _happyCatDance= new ImageIcon("catWinner.gif");
+        _catNoNo= new ImageIcon("catNo.gif");
+        _mCat= new ImageIcon("Macri.gif");
+        _catComputer= new ImageIcon("catComputer.gif");
+        _catTyping= new ImageIcon("catTyping.gif");
+        _isNotAGameCat= new ImageIcon("catAngry.gif");
         }
         catch(IOException e)
         {
@@ -183,6 +197,8 @@ public class Jugar extends JPanel {
                     if (_miPartidaJuego.LetraEstaEnLaLista(letra_ingresada)) 
                     {
                         JOptionPane.showMessageDialog(null, "Ya ingresaste la letra " + letra_ingresada);
+                        JOptionPane.showMessageDialog(null, "Ya ingresaste la letra ", "Letra repetida", JOptionPane.INFORMATION_MESSAGE, _catComputer);
+                        haceSonido(sonidoMiau);
                     }
                     else
                     {
@@ -190,21 +206,23 @@ public class Jugar extends JPanel {
                 
                         if(_miPartidaJuego.BuscaLetraEnPalabra(letra_ingresada))
                         {
-                            JOptionPane.showMessageDialog(null, "Correcto!!!");
+                            JOptionPane.showMessageDialog(null, "", "Letra correcta!!!", JOptionPane.INFORMATION_MESSAGE, _nyanCat);
                             _areaParaIngresarLetra.setText("");
                             repaint();//llama a paint hace update()
                             
                             if(_miPartidaJuego.AdivinoLaPalabra())
                             {
                                 System.out.println("Ganaste!!!");
-                                frame1= new FrameGif("nyan_cat.gif", "Ganaste!!!", 500, 350);
+                                haceSonido(sonidoGano);
+                                JOptionPane.showMessageDialog(null, "", "Ganaste!!!", JOptionPane.INFORMATION_MESSAGE, _happyCatDance);
                                 resetear();
                                 setVisible(false);  
                             }
                         }
                         else
                         {
-                            frame1= new FrameGif("catNo.gif", "Letra incorrecta!!!", 230, 230);
+                            //frame1= new FrameGif("catNo.gif", "Letra incorrecta!!!", 230, 230);
+                            JOptionPane.showMessageDialog(null, "", "Letra incorrecta!!!", JOptionPane.INFORMATION_MESSAGE, _catNoNo);
                             _miPartidaJuego.setCuentaErrores(1);
                             try {
                                 seEnojaElGatito();
@@ -222,8 +240,8 @@ public class Jugar extends JPanel {
                 }
                 else
                 {
-                    getToolkit().beep();
                     JOptionPane.showMessageDialog(null, "Solo pueden ingresar letras");
+                    haceSonido(sonidoMiau);
                     ke.consume();
                     _areaParaIngresarLetra.setText("");   
                 }
@@ -244,7 +262,10 @@ public class Jugar extends JPanel {
         else
         {
             System.out.println("Perdiste!!!");
-            frame1= new FrameGif("Macri.gif", "Perdiste!!!", 400, 250);
+            //JOptionPane.showMessageDialog(null, "", "Perdiste!!!", JOptionPane.INFORMATION_MESSAGE, _mCat);
+            haceSonido(sonidoPerdio);
+            JOptionPane.showMessageDialog(null, "", "Perdiste!!!", JOptionPane.INFORMATION_MESSAGE, _isNotAGameCat);
+            //frame1= new FrameGif("Macri.gif", "Perdiste!!!", 400, 250);
             resetear();
             setVisible(false);   
             

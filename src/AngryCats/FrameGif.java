@@ -5,6 +5,8 @@
  */
 package AngryCats;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,7 +31,7 @@ public class FrameGif extends JFrame{
         Iniciar();
     }
     
-    public void Iniciar()
+    private void Iniciar()
     {
         
         setVisible(true);
@@ -40,8 +42,6 @@ public class FrameGif extends JFrame{
         setResizable(false);
         setLocationRelativeTo(null); 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
         
-    }   
-    
+    } 
 }

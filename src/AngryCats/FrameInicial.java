@@ -7,6 +7,13 @@ package AngryCats;
 
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.io.File;
+import java.io.IOException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 
 
@@ -51,6 +58,18 @@ public class FrameInicial extends javax.swing.JFrame {
         //miFrameImagen.setBackground(Color.GRAY.brighter().brighter());
         
     }
+    
+    public void haceSonido(String sonido) {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(sonido).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
+            System.out.println("No se encontró sonido");
+        }
+    }
+    
     
     /**
      *  JLabel rotulo1= new JLabel("Angry Cats");

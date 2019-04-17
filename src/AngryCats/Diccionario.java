@@ -21,7 +21,7 @@ import java.util.Random;
  *
  * @author Mechu
  */
-public class Diccionario {
+public class Diccionario{
     
     public ArrayList<String> miDiccionario;
     
@@ -44,6 +44,7 @@ public class Diccionario {
         miDiccionario.add("BONGOCAT");
     }
     
+
     public static void guardarArchivoDiccionario(Diccionario lista, String nombreArchivo)
     {
         XMLEncoder encoder = null;

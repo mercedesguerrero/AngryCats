@@ -100,7 +100,8 @@ public class IniciaJuego extends JPanel{
         });
         
         add(boton_cerrar);
-    }    
+    }
+
     
 }      
   
