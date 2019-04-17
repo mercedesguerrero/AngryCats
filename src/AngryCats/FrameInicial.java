@@ -26,83 +26,18 @@ public class FrameInicial extends javax.swing.JFrame {
     
     public FrameInicial() 
     {
-        /**
-        Toolkit miMonitor= Toolkit.getDefaultToolkit();
-        
-        Dimension tamanioMonitor= miMonitor.getScreenSize();
-        
-        int alturaMonitor= tamanioMonitor.height;
-        int anchoMonitor= tamanioMonitor.width;
-        
-        //setSize(anchoMonitor-100, alturaMonitor-100);
-        //setLocation(anchoMonitor-1550, alturaMonitor-850);
-        
-        //setSize(1200, 850);*/
         setSize(1200, 700);
         setResizable(false);
         setLocationRelativeTo(null); 
         setTitle("AngryCats");
         
         IniciaJuego miLayer= new IniciaJuego();
-        //setContentPane(new JLabel(new ImageIcon("space.jpg")));
-        //add(new JLabel(new ImageIcon("space.jpg")));
-        
         
         add(miLayer);
-        //addElementos();
-        //miLayer.setBackground(new JLabel(new ImageIcon("space.jpg"));    
-        //setContentPane(new JLabel(new ImageIcon("space.jpg")));
-        //setVisible(true);
-        
-        //miCapa.setBackground(Color.CYAN);
-        //miFrameImagen.setBackground(Color.GRAY.brighter().brighter());
         
     }
     
-    public void haceSonido(String sonido) {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(sonido).getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
-            System.out.println("No se encontró sonido");
-        }
-    }
     
-    
-    /**
-     *  JLabel rotulo1= new JLabel("Angry Cats");
-        
-        Box cajaH1= Box.createHorizontalBox();
-        
-        cajaH1.add(rotulo1);
-        
-        
-        
-        Box cajaH2= Box.createHorizontalBox();
-        
-        cajaH2.add(miLayer);
-        
-        JButton boton_cerrar= new JButton("Cerrar");
-        boton_cerrar.setFont(new Font("Aharoni", 1, 32));
-        
-        JButton BotonJugar= new JButton("JUGAR");
-        BotonJugar.setFont(new Font("Aharoni", 1, 32));
-        
-        Box cajaH3= Box.createHorizontalBox();
-        cajaH3.add(boton_cerrar);
-        cajaH3.add(Box.createHorizontalBox());
-        cajaH3.add(BotonJugar);
-        
-        Box cajaVertical= Box.createVerticalBox();
-        
-        cajaVertical.add(cajaH1);
-        cajaVertical.add(cajaH2);
-        cajaVertical.add(cajaH3);
-        
-        add(cajaVertical, BorderLayout.CENTER);
-     */
    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

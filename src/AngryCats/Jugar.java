@@ -56,6 +56,7 @@ public class Jugar extends JPanel {
     private ImageIcon _isNotAGameCat;
     private ImageIcon _catTyping;
     private ImageIcon _catComputer;
+    private final String sonidoCatSuperAngry= "superAngry.wav";
     private final String sonidoGano = "Piipiripipipiiii.wav";
     private final String sonidoPerdio = "angryCatSonido.wav";
     private final String sonidoMiau = "miau.wav";
@@ -159,6 +160,7 @@ public class Jugar extends JPanel {
             {
                 int respuesta;
                 
+                haceSonido(sonidoMiau);
                 respuesta = JOptionPane.showConfirmDialog(null, "Desea abandonar la partida?");
                 if (respuesta == 0) {
                     resetear();
@@ -206,6 +208,7 @@ public class Jugar extends JPanel {
                 
                         if(_miPartidaJuego.BuscaLetraEnPalabra(letra_ingresada))
                         {
+                            haceSonido(sonidoMiau);
                             JOptionPane.showMessageDialog(null, "", "Letra correcta!!!", JOptionPane.INFORMATION_MESSAGE, _nyanCat);
                             _areaParaIngresarLetra.setText("");
                             repaint();//llama a paint hace update()
@@ -222,6 +225,7 @@ public class Jugar extends JPanel {
                         else
                         {
                             //frame1= new FrameGif("catNo.gif", "Letra incorrecta!!!", 230, 230);
+                            haceSonido(sonidoCatSuperAngry);
                             JOptionPane.showMessageDialog(null, "", "Letra incorrecta!!!", JOptionPane.INFORMATION_MESSAGE, _catNoNo);
                             _miPartidaJuego.setCuentaErrores(1);
                             try {
@@ -264,7 +268,7 @@ public class Jugar extends JPanel {
             System.out.println("Perdiste!!!");
             //JOptionPane.showMessageDialog(null, "", "Perdiste!!!", JOptionPane.INFORMATION_MESSAGE, _mCat);
             haceSonido(sonidoPerdio);
-            JOptionPane.showMessageDialog(null, "", "Perdiste!!!", JOptionPane.INFORMATION_MESSAGE, _isNotAGameCat);
+            JOptionPane.showMessageDialog(null, "", "Perdiste!!!", JOptionPane.INFORMATION_MESSAGE, _mCat);
             //frame1= new FrameGif("Macri.gif", "Perdiste!!!", 400, 250);
             resetear();
             setVisible(false);   

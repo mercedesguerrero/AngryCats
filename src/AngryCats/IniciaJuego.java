@@ -108,46 +108,5 @@ public class IniciaJuego extends JPanel{
     
 }      
   
-    /*
-    public Layer1()
-    {
-        setLayout(new GridLayout(3, 1));
-        JPanel miLayer2= new JPanel();
-        JPanel miLayer3= new JPanel();
-        JPanel miLayer4= new JPanel();
-        
-        miLayer2.setLayout(new FlowLayout());
-        miLayer3.setLayout(new FlowLayout());
-        miLayer4.setLayout(new FlowLayout());
-        
-              
-        //miLayer2.setBackground(Color.pink);
-        
-        JLabel texto1= new JLabel("Angry Cats");
-        texto1.setFont(new Font("Aharoni", 1, 32));
-        
-        miLayer2.add(texto1);
-        
-        Imagen ImagenCat= new Imagen();
-        add(ImagenCat);
-       
-        miLayer3.add(ImagenCat);
-        
-        
-        
-        JButton BotonJugar= new JButton("JUGAR");
-        
-        //DameTexto miEvento= new DameTexto();
-        
-        //miBoton.addActionListener(miEvento);
-        BotonJugar.setFont(new Font("Aharoni", 1, 32));
-        BotonJugar.setSize(200, 100);
-        
-        miLayer4.add(BotonJugar);
-        
-        add(miLayer2);
-        add(miLayer3);
-        add(miLayer4);
-    }    
-    */
+    
 

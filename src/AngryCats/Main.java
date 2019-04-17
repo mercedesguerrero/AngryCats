@@ -21,13 +21,12 @@ public class Main {
     public static void main(String[] args) {
         
         FrameInicial miFrame= new FrameInicial();
-        String sonidoInicio = "Piipiripipipiiii.wav";
                 
         miFrame.setVisible(true);
                 
         miFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        miFrame.haceSonido(sonidoInicio);
+        
         
         generarListas();
         
