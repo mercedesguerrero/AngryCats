@@ -27,6 +27,7 @@ public class IniciaJuego extends JPanel{
     private Image _fondo;
     private Image _tituloJuego;
     private int respuesta;
+    private ImageIcon _catTyping;
     private FrameJuego JugarNuevaPartida;
     
     @Override
@@ -37,6 +38,7 @@ public class IniciaJuego extends JPanel{
         try{
         _fondo= ImageIO.read(new File("space.jpg"));
         _tituloJuego= ImageIO.read(new File("angryCatsTitulo.png"));
+        _catTyping= new ImageIcon("catTyping.gif");
         
         }
         catch(IOException e)
@@ -70,6 +72,7 @@ public class IniciaJuego extends JPanel{
             {
                 JugarNuevaPartida= new FrameJuego();
                 JugarNuevaPartida.setVisible(true);
+                JOptionPane.showMessageDialog(null, "", "Ingresa letras y adivina el gatito", JOptionPane.INFORMATION_MESSAGE, _catTyping);
             }
         });
         

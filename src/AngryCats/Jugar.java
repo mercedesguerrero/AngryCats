@@ -196,8 +196,8 @@ public class Jugar extends JPanel {
                     
                     if (_miPartidaJuego.LetraEstaEnLaLista(letra_ingresada)) 
                     {
-                        JOptionPane.showMessageDialog(null, "Ya ingresaste la letra " + letra_ingresada);
-                        JOptionPane.showMessageDialog(null, "Ya ingresaste la letra ", "Letra repetida", JOptionPane.INFORMATION_MESSAGE, _catComputer);
+                        //JOptionPane.showMessageDialog(null, "Ya ingresaste la letra " + letra_ingresada);
+                        JOptionPane.showMessageDialog(null, "Ya ingresaste la letra " + letra_ingresada, "Letra repetida", JOptionPane.INFORMATION_MESSAGE, _catComputer);
                         haceSonido(sonidoMiau);
                     }
                     else
