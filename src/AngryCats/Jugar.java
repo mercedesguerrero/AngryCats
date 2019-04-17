@@ -104,7 +104,7 @@ public class Jugar extends JPanel {
         super.paintComponent(g);
         
         try{
-        _fondo= ImageIO.read(new File("space.jpg"));
+        _fondo= ImageIO.read(new File("space2.jpg"));
         _globoComic= ImageIO.read(new File("globo_comic.png"));
         }
         catch(IOException e)
@@ -118,10 +118,15 @@ public class Jugar extends JPanel {
         g.drawImage(getGatitoEnojado(), 280, 190, null);
         
         Graphics2D palabra= (Graphics2D) g;
-        
         palabra.setFont(new Font("Calibri", Font.BOLD, 112));
         palabra.setColor(new Color(65, 228, 195));
         palabra.drawString(_miPartidaJuego.getPalabra_del_usuario(), 150, 150);
+        
+        Graphics2D letras= (Graphics2D) g;
+        letras.setFont(new Font("Calibri", Font.BOLD, 20));
+        letras.setColor(new Color(65, 228, 195));
+        letras.drawString("Letras ingresadas: ", 60, 370);
+        letras.drawString(_miPartidaJuego.getLetrasIngresadasList().toString(), 60, 400);
         
         JButton boton_salir= new JButton(new ImageIcon("SalirBtn.png"));
         boton_salir.setBorder(null);
@@ -130,7 +135,7 @@ public class Jugar extends JPanel {
         boton_salir.setFocusPainted(false);
         boton_salir.setToolTipText("Abandonar partida");
         boton_salir.setActionCommand("Abandonar_partida");
-        boton_salir.setBounds(80, 470, 250, 100);//x,y,tamaño
+        boton_salir.setBounds(60, 520, 250, 100);//x,y,tamaño
         
         boton_salir.addActionListener(new ActionListener()
         {
@@ -203,7 +208,6 @@ public class Jugar extends JPanel {
                             }
                             //g.drawImage(getGatitoEnojado(), 200, 300, null);
                             System.out.println("Cantidad de errores: " + _miPartidaJuego.getCuentaErrores());
-                            JOptionPane.showMessageDialog(null, "Incorrecto!!!");
                             _areaParaIngresarLetra.setText("");
                             
                             repaint();
@@ -285,19 +289,19 @@ public class Jugar extends JPanel {
         
         if (_miPartidaJuego.getCuentaErrores() > 1) 
         {
-            setGatitoEnojado("gatitoEnojado1.png");
+            setGatitoEnojado("gatitoEnojado2.png");
             if (_miPartidaJuego.getCuentaErrores() > 2) 
             {
-                setGatitoEnojado("gatitoEnojado1.png");
+                setGatitoEnojado("gatitoEnojado3.png");
                 if (_miPartidaJuego.getCuentaErrores() > 3) 
                 {
-                    setGatitoEnojado("gatitoEnojado1.png");
+                    setGatitoEnojado("gatitoEnojado4.png");
                     if (_miPartidaJuego.getCuentaErrores() > 4) 
                     {
-                        setGatitoEnojado("gatitoEnojado1.png");
+                        setGatitoEnojado("gatitoEnojado5.png");
                         if (_miPartidaJuego.getCuentaErrores() > 5) 
                         {
-                            setGatitoEnojado("gatitoEnojado1.png");
+                            setGatitoEnojado("gatitoEnojado6.png");
                         }
                     }
                 }

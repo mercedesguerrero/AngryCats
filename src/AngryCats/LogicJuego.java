@@ -85,6 +85,10 @@ public class LogicJuego {
         this._juegosJugados = _juegosJugados;
     }
 
+    public ArrayList<Character> getLetrasIngresadasList() {
+        return _letrasIngresadasList;
+    }
+
     public int getCantAciertos()
     {
         return _cantAciertos;
