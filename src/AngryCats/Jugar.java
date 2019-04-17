@@ -47,6 +47,7 @@ public class Jugar extends JPanel {
     private char letra_ingresada;
     private String palabraCorrecta;//palabra random original
     private String letrasIngresadas;
+    private FrameGif frame1;
    
     //private final String sonidoGano = "gano.wav";
     //private final String sonidoPerdio = "perdio.wav";
@@ -195,11 +196,15 @@ public class Jugar extends JPanel {
                             
                             if(_miPartidaJuego.AdivinoLaPalabra())
                             {
-                                JOptionPane.showMessageDialog(null, "Ganaste!!!");
+                                System.out.println("Ganaste!!!");
+                                frame1= new FrameGif("nyan_cat.gif", "Ganaste!!!", 500, 350);
+                                resetear();
+                                setVisible(false);  
                             }
                         }
                         else
                         {
+                            frame1= new FrameGif("catNo.gif", "Letra incorrecta!!!", 230, 230);
                             _miPartidaJuego.setCuentaErrores(1);
                             try {
                                 seEnojaElGatito();
@@ -207,6 +212,7 @@ public class Jugar extends JPanel {
                                 System.out.println("No se pudo enojar el gatito");
                             }
                             //g.drawImage(getGatitoEnojado(), 200, 300, null);
+                            
                             System.out.println("Cantidad de errores: " + _miPartidaJuego.getCuentaErrores());
                             _areaParaIngresarLetra.setText("");
                             
@@ -238,7 +244,7 @@ public class Jugar extends JPanel {
         else
         {
             System.out.println("Perdiste!!!");
-            JOptionPane.showMessageDialog(null, "Perdiste!!!");
+            frame1= new FrameGif("Macri.gif", "Perdiste!!!", 400, 250);
             resetear();
             setVisible(false);   
             
