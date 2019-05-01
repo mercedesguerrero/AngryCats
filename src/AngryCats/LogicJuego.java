@@ -5,12 +5,7 @@
  */
 package AngryCats;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
@@ -32,9 +27,9 @@ public class LogicJuego {
     private int _juegosGanados;
     private int _juegosJugados;
     
-    public LogicJuego() throws DiccionarioException
+    public LogicJuego() throws XMLException
     {
-        this.diccionarioCats = Diccionario.cargarDiccionario(AngryCats.Main.pathDiccionario);
+        this.diccionarioCats = Diccionario.cargarDiccionario();
         this._palabra_del_usuario= "";
         this._cantAciertos= 0;
         this._cuentaErrores= 0;
@@ -45,7 +40,7 @@ public class LogicJuego {
         nuevaPalabra();
     }
     
-    private void nuevaPalabra() throws DiccionarioException
+    private void nuevaPalabra() throws XMLException
     {    
         this._palabra_a_adivinar = this.diccionarioCats.getPalabraRandom();   
         generarMascara();

@@ -12,8 +12,6 @@ import javax.swing.JFrame;
  * @author Mechu
  */
 public class Main {
-    
-    public static String pathDiccionario = "Diccionario.xml";
 
     /**
      * @param args the command line arguments
@@ -26,19 +24,14 @@ public class Main {
                 
         miFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        
-        
-        generarListas();
-        
-         
-    }
-
-    public static void generarListas()
-    {        
         Diccionario diccionarioCats = new Diccionario();
-        diccionarioCats.AgregarPalabras();
-        Diccionario.guardarArchivoDiccionario(diccionarioCats, pathDiccionario);
+        
+        Diccionario.guardarArchivoDiccionario(diccionarioCats);
+        
+        Jugadores jugadoresAngryCats = new Jugadores();
+        
+        Jugadores.guardarArchivoJugadores(jugadoresAngryCats);
+        
     }
-    
     
 }

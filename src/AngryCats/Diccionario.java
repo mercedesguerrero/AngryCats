@@ -12,8 +12,6 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -24,13 +22,16 @@ import java.util.Random;
 public class Diccionario{
     
     public ArrayList<String> miDiccionario;
+    private static String _path;
     
     public Diccionario()
     {
         miDiccionario = new ArrayList<>();
+        _path= "Diccionario.xml";
+        AgregarPalabras();
     }
-    
-    public void AgregarPalabras()
+
+    public final void AgregarPalabras()
     {
         miDiccionario.add("GARFIELD");
         miDiccionario.add("GRUMPYCAT");
@@ -43,15 +44,14 @@ public class Diccionario{
         miDiccionario.add("KITTY");
         miDiccionario.add("BONGOCAT");
     }
-    
 
-    public static void guardarArchivoDiccionario(Diccionario lista, String nombreArchivo)
+    public static void guardarArchivoDiccionario(Diccionario lista)
     {
         XMLEncoder encoder = null;
 
         try
         {
-            FileOutputStream file = new FileOutputStream(nombreArchivo);
+            FileOutputStream file = new FileOutputStream(_path);
             BufferedOutputStream salida = new BufferedOutputStream(file);
             encoder = new XMLEncoder(salida);
         }
@@ -65,13 +65,13 @@ public class Diccionario{
         encoder.close();
     }
 
-    public static Diccionario cargarDiccionario(String nombreArchivo)
+    public static Diccionario cargarDiccionario()
     {
         XMLDecoder decoder = null;
 
         try
         {
-            decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(nombreArchivo)));
+            decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(_path)));
         }
         catch (FileNotFoundException fileNotFound)
         {
@@ -112,13 +112,13 @@ public class Diccionario{
         return numero;
     }
 
-    public String getPalabraRandom() throws DiccionarioException
+    public String getPalabraRandom() throws XMLException
     {
         int nroRandom;
 
         if (this.miDiccionario.isEmpty())
         {
-            throw new DiccionarioException("diccionario 100% usado");
+            throw new XMLException("diccionario 100% usado");
         }
         else
         {
@@ -128,7 +128,6 @@ public class Diccionario{
         return this.miDiccionario.get(nroRandom);
     }
 
-    // </editor-fold>
 }
    
     

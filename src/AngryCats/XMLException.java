@@ -9,13 +9,13 @@ package AngryCats;
  *
  * @author Mechu
  */
-public class DiccionarioException extends Exception{
+public class XMLException extends Exception{
     
-    public DiccionarioException()
+    public XMLException()
     {
     }
 
-    public DiccionarioException(String msg)
+    public XMLException(String msg)
     {
         super(msg);
     }

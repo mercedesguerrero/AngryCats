@@ -8,9 +8,9 @@ import java.awt.event.ComponentListener;
  *
  * @author Mechu
  */
-public class FrameJuego extends javax.swing.JDialog {
+public class FrameLoguearse extends javax.swing.JDialog {
 
-    public FrameJuego() {
+    public FrameLoguearse() {
         //super();
         
         setTitle("Jugar Angry Cats");
@@ -19,7 +19,7 @@ public class FrameJuego extends javax.swing.JDialog {
         setResizable(false);
         setLocationRelativeTo(null);
         
-        Jugar miLayer= new Jugar();
+        Logueo miLayer= new Logueo();
         
         
         miLayer.addComponentListener(new ComponentListener()

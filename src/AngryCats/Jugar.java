@@ -6,11 +6,9 @@
 package AngryCats;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,17 +17,13 @@ import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -48,7 +42,6 @@ public class Jugar extends JPanel {
     private char letra_ingresada;
     private String palabraCorrecta;//palabra random original
     private String letrasIngresadas;
-    private FrameGif frame1;
     private ImageIcon _nyanCat;
     private ImageIcon _happyCatDance;
     private ImageIcon _catNoNo;
@@ -68,14 +61,14 @@ public class Jugar extends JPanel {
             iniciarJuego();
             
         }
-        catch (DiccionarioException ex)
+        catch (XMLException ex)
         {
             JOptionPane.showMessageDialog(null, ex.getMessage());
             System.out.println("Error Diccionario- no se puede iniciar juego ");
         }
     }
     
-    private void iniciarJuego() throws DiccionarioException
+    private void iniciarJuego() throws XMLException
     {
         this._miPartidaJuego= new LogicJuego();
         

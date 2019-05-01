@@ -29,6 +29,8 @@ public class IniciaJuego extends JPanel{
     private int respuesta;
     private ImageIcon _catTyping;
     private FrameJuego JugarNuevaPartida;
+    private FrameLoguearse Loguearse;
+    private boolean _estaLogueado;
     
     @Override
     public void paintComponent(Graphics g)
@@ -51,13 +53,8 @@ public class IniciaJuego extends JPanel{
         g.drawImage(_fondo, 0, 0, null); //OBSERVER= informar el progreso de conversion de la imagen
         g.drawImage(_tituloJuego, 90, 20, null);
         
-        //NewListener oyente= new NewListener();
-        
         JButton BotonJugar= new JButton(new ImageIcon("jugarBtn.png"));
-        //DameTexto miEvento= new DameTexto();
-        //miBoton.addActionListener(miEvento);
         BotonJugar.setFont(new Font("Aharoni", 1, 32));
-        //BotonJugar.setSize(200, 100);
         BotonJugar.setBorder(null);
         BotonJugar.setBorderPainted(false);
         BotonJugar.setContentAreaFilled(false);
@@ -78,6 +75,26 @@ public class IniciaJuego extends JPanel{
         
         add(BotonJugar);
         
+        JButton BotonLogIn= new JButton(new ImageIcon("LoginBtn.png"));
+        BotonLogIn.setBorder(null);
+        BotonLogIn.setBorderPainted(false);
+        BotonLogIn.setContentAreaFilled(false);
+        BotonLogIn.setFocusPainted(false);
+        BotonLogIn.setToolTipText("Iniciar sesion");
+        BotonLogIn.setActionCommand("LogIn");
+        BotonLogIn.setBounds(760, 340, 350, 200);//x,y,tamaño
+        BotonLogIn.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                Loguearse= new FrameLoguearse();
+                Loguearse.setVisible(true);
+            }
+        });
+        
+        add(BotonLogIn);
+        
         
         JButton boton_cerrar= new JButton(new ImageIcon("CerrarBtn.png"));
         boton_cerrar.setFont(new Font("Aharoni", 1, 32));
@@ -94,7 +111,7 @@ public class IniciaJuego extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                respuesta = JOptionPane.showConfirmDialog(null, "Desea abandonar partida?");
+                respuesta = JOptionPane.showConfirmDialog(null, "Desea abandonar el juego?", "AngryCats", JOptionPane.YES_NO_OPTION);
                 if (respuesta == 0)
                 {
                     System.exit(0);
