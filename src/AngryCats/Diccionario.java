@@ -19,39 +19,69 @@ import java.util.Random;
  *
  * @author Mechu
  */
-public class Diccionario{
+public class Diccionario implements java.io.Serializable {
     
-    public ArrayList<String> miDiccionario;
-    private static String _path;
+    private ArrayList<String> miListaDePalabras;
+    private static final String PATH= "Diccionario.xml";
     
     public Diccionario()
     {
-        miDiccionario = new ArrayList<>();
-        _path= "Diccionario.xml";
-        AgregarPalabras();
+        miListaDePalabras = new ArrayList<>();
     }
 
-    public final void AgregarPalabras()
+    public static Diccionario CargarDiccionario() throws JuegoException
     {
-        miDiccionario.add("GARFIELD");
-        miDiccionario.add("GRUMPYCAT");
-        miDiccionario.add("SILVESTRE");
-        miDiccionario.add("GOOSE");
-        miDiccionario.add("GATURRO");
-        miDiccionario.add("FELIX");
-        miDiccionario.add("SALEM");
-        miDiccionario.add("PUSHEEN");
-        miDiccionario.add("KITTY");
-        miDiccionario.add("BONGOCAT");
+        /*
+        miListaDePalabras.add("GARFIELD");
+        miListaDePalabras.add("GRUMPYCAT");
+        miListaDePalabras.add("SILVESTRE");
+        miListaDePalabras.add("GOOSE");
+        miListaDePalabras.add("GATURRO");
+        miListaDePalabras.add("FELIX");
+        miListaDePalabras.add("SALEM");
+        miListaDePalabras.add("PUSHEEN");
+        miListaDePalabras.add("KITTY");
+        miListaDePalabras.add("BONGOCAT");
+        
+        */
+        
+        ManejadorDeArchivos manejador = new ManejadorDeArchivos(PATH);
+        Diccionario diccionario = (Diccionario) manejador.CargarObjetoDeArchivo();
+        
+        if(diccionario == null){
+            throw new JuegoException("No hay palabras para adivinar");
+            
+        }else{
+            return diccionario;
+        }
+
+    }
+    
+    public ArrayList<String> getMiListaDePalabras() {
+        return miListaDePalabras;
     }
 
-    public static void guardarArchivoDiccionario(Diccionario lista)
+    public void setMiListaDePalabras(ArrayList<String> miListaDePalabras) {
+        this.miListaDePalabras = miListaDePalabras;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder salida = new StringBuilder();
+        for (String unaPalabra : this.miListaDePalabras) {
+            salida.append(unaPalabra).append("\n");
+        }
+
+        return salida.toString();
+    }
+    /*
+    public void guardarArchivoDiccionario()
     {
         XMLEncoder encoder = null;
 
         try
         {
-            FileOutputStream file = new FileOutputStream(_path);
+            FileOutputStream file = new FileOutputStream(PATH);
             BufferedOutputStream salida = new BufferedOutputStream(file);
             encoder = new XMLEncoder(salida);
         }
@@ -61,7 +91,7 @@ public class Diccionario{
             System.out.println("ERROR- file not found");
         }
 
-        encoder.writeObject(lista);
+        encoder.writeObject(miListaDePalabras);
         encoder.close();
     }
 
@@ -71,7 +101,7 @@ public class Diccionario{
 
         try
         {
-            decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(_path)));
+            decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(PATH)));
         }
         catch (FileNotFoundException fileNotFound)
         {
@@ -83,17 +113,17 @@ public class Diccionario{
 
         return nuevo;
     }
-
+    */
     public void quitarPalabra(String nombre)
     {
 
         boolean encontrada = false;
 
-        for (String palabra : this.miDiccionario)
+        for (String palabra : this.miListaDePalabras)
         {
             if (nombre.equalsIgnoreCase(palabra))
             {
-                this.miDiccionario.remove(palabra);
+                this.miListaDePalabras.remove(palabra);
                 encontrada = true;
             }
         }
@@ -112,20 +142,20 @@ public class Diccionario{
         return numero;
     }
 
-    public String getPalabraRandom() throws XMLException
+    public String getPalabraRandom() throws JuegoException
     {
         int nroRandom;
 
-        if (this.miDiccionario.isEmpty())
+        if (this.miListaDePalabras.isEmpty())
         {
-            throw new XMLException("diccionario 100% usado");
+            throw new JuegoException("No hay palabras disponibles");
         }
         else
         {
-            nroRandom = Random_Intervalo(0, this.miDiccionario.size() - 1);
+            nroRandom = Random_Intervalo(0, this.miListaDePalabras.size() - 1);
         }
         
-        return this.miDiccionario.get(nroRandom);
+        return this.miListaDePalabras.get(nroRandom);
     }
 
 }

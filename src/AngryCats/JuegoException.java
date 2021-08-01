@@ -9,13 +9,13 @@ package AngryCats;
  *
  * @author Mechu
  */
-public class XMLException extends Exception{
+public class JuegoException extends Exception{
     
-    public XMLException()
+    public JuegoException()
     {
     }
 
-    public XMLException(String msg)
+    public JuegoException(String msg)
     {
         super(msg);
     }

@@ -27,9 +27,8 @@ public class LogicJuego {
     private int _juegosGanados;
     private int _juegosJugados;
     
-    public LogicJuego() throws XMLException
+    public LogicJuego()
     {
-        this.diccionarioCats = Diccionario.cargarDiccionario();
         this._palabra_del_usuario= "";
         this._cantAciertos= 0;
         this._cuentaErrores= 0;
@@ -37,10 +36,16 @@ public class LogicJuego {
         this._letrasIngresadasList = new ArrayList<>();
         this._juegosGanados = 0;
         this._juegosJugados = 0;
-        nuevaPalabra();
+        
     }
     
-    private void nuevaPalabra() throws XMLException
+    public void iniciarJuego()throws JuegoException
+    {
+        this.diccionarioCats = Diccionario.CargarDiccionario();
+        generarNuevaPalabra();
+    }
+    
+    private void generarNuevaPalabra()throws JuegoException
     {    
         this._palabra_a_adivinar = this.diccionarioCats.getPalabraRandom();   
         generarMascara();

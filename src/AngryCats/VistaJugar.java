@@ -32,7 +32,7 @@ import javax.swing.JTextArea;
  *
  * @author Mechu
  */
-public class Jugar extends JPanel {
+public class VistaJugar extends JPanel {
     
     private LogicJuego _miPartidaJuego;
     private Image _fondo;
@@ -40,7 +40,6 @@ public class Jugar extends JPanel {
     private Image _globoComic;
     JTextArea _areaParaIngresarLetra;
     private char letra_ingresada;
-    private String palabraCorrecta;//palabra random original
     private String letrasIngresadas;
     private ImageIcon _nyanCat;
     private ImageIcon _happyCatDance;
@@ -54,26 +53,20 @@ public class Jugar extends JPanel {
     private final String sonidoPerdio = "angryCatSonido.wav";
     private final String sonidoMiau = "miau.wav";
     
-    public Jugar()
-    {   
-        try
-        {
-            iniciarJuego();
-            
-        }
-        catch (XMLException ex)
-        {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-            System.out.println("Error Diccionario- no se puede iniciar juego ");
-        }
-    }
     
-    private void iniciarJuego() throws XMLException
+    public void iniciarJuego()
     {
-        this._miPartidaJuego= new LogicJuego();
+        _miPartidaJuego= new LogicJuego();
         
-        palabraCorrecta= _miPartidaJuego.getPalabra_a_adivinar();
-        _miPartidaJuego.setPalabra_a_adivinar(palabraCorrecta);
+        try{
+            _miPartidaJuego.iniciarJuego();
+            
+        }catch(JuegoException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            System.out.println("Error Diccionario- no se puede iniciar juego ");
+            
+            System.exit(1);
+        }   
     }
 
     public Image getGatitoEnojado() {
@@ -191,7 +184,6 @@ public class Jugar extends JPanel {
                     
                     if (_miPartidaJuego.LetraEstaEnLaLista(letra_ingresada)) 
                     {
-                        //JOptionPane.showMessageDialog(null, "Ya ingresaste la letra " + letra_ingresada);
                         JOptionPane.showMessageDialog(null, "Ya ingresaste la letra " + letra_ingresada, "Letra repetida", JOptionPane.INFORMATION_MESSAGE, _catComputer);
                         haceSonido(sonidoMiau);
                     }

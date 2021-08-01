@@ -19,7 +19,8 @@ public class FrameJuego extends javax.swing.JDialog {
         setResizable(false);
         setLocationRelativeTo(null);
         
-        Jugar miLayer= new Jugar();
+        VistaJugar miLayer= new VistaJugar();
+        miLayer.iniciarJuego();
         
         
         miLayer.addComponentListener(new ComponentListener()

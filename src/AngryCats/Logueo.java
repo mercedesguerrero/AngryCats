@@ -54,14 +54,14 @@ public class Logueo extends JPanel {
         {
             Loguearse();  
         }
-        catch (XMLException ex)
+        catch (JuegoException ex)
         {
             JOptionPane.showMessageDialog(null, ex.getMessage());
             System.out.println("Error Lista de Jugadores- no se encuentra el archivo");
         }
     }
     
-    private void Loguearse() throws XMLException
+    private void Loguearse() throws JuegoException
     {
         this.jugadoresAngryCats = Jugadores.cargarJugadores();
     }

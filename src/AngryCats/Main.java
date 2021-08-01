@@ -5,6 +5,7 @@
  */
 package AngryCats;
 
+import java.util.ArrayList;
 import javax.swing.JFrame;
 
 /**
@@ -24,9 +25,6 @@ public class Main {
                 
         miFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        Diccionario diccionarioCats = new Diccionario();
-        
-        Diccionario.guardarArchivoDiccionario(diccionarioCats);
         
         Jugadores jugadoresAngryCats = new Jugadores();
         
