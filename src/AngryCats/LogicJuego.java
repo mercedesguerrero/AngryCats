@@ -132,6 +132,16 @@ public class LogicJuego {
         this.diccionarioCats = diccionarioCompleto;
     }
     
+    public Usuario getUsuarioLogueado()
+    {
+        return this.usuarioLogueado;
+    }
+
+    public void setUsuarioLogueado(Usuario usuarioLogueado)
+    {
+        this.usuarioLogueado = usuarioLogueado;
+    }
+    
     public boolean esLetra(char letra)
     {
         boolean retorno= false;

@@ -37,6 +37,7 @@ import javax.swing.JTextArea;
 public class VistaJugar extends JPanel {
     
     private LogicJuego _miPartidaJuego;
+    private int _puntajeAcumulado;
     private Image _fondo;
     private Image _gatitoEnojado;
     private Image _globoComic;
@@ -321,6 +322,16 @@ public class VistaJugar extends JPanel {
         letras.setColor(new Color(65, 228, 195));
         letras.drawString("Letras ingresadas: ", 60, 370);
         letras.drawString(_miPartidaJuego.getLetrasIngresadasList().toString(), 60, 400);
+        
+        Graphics2D puntaje= (Graphics2D) g;
+        puntaje.setFont(new Font("Calibri", Font.BOLD, 20));
+        puntaje.setColor(new Color(65, 228, 195));
+        puntaje.drawString("Puntaje acumulado: ", 900, 40);
+        
+        _miPartidaJuego.ChequeaPuntaje();
+        _puntajeAcumulado = _miPartidaJuego.getPuntajeAcumulado();
+        
+        puntaje.drawString(String.valueOf(_puntajeAcumulado), 1080, 40);
         
     }
     

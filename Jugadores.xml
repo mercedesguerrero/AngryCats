@@ -50,6 +50,9 @@
      <void property="password">
       <string>amelia123</string>
      </void>
+     <void property="puntaje">
+      <int>680</int>
+     </void>
     </object>
    </void>
    <void method="add">
@@ -61,7 +64,7 @@
       <string>Mercedes123</string>
      </void>
      <void property="puntaje">
-      <int>340</int>
+      <int>640</int>
      </void>
     </object>
    </void>

@@ -111,28 +111,6 @@ public class VistaIniciaJuego extends JPanel{
         
         add(BotonLogIn);
         
-        JButton BotonCrearCuenta= new JButton("Crear cuenta");
-        BotonCrearCuenta.setBorder(null);
-        BotonCrearCuenta.setBorderPainted(false);
-        BotonCrearCuenta.setContentAreaFilled(false);
-        BotonCrearCuenta.setFocusPainted(false);
-        BotonCrearCuenta.setFont(new Font("Calibri", Font.BOLD, 20));
-        BotonCrearCuenta.setForeground(new Color(65, 228, 195));
-        BotonCrearCuenta.setToolTipText("Crear nueva cuenta");
-        BotonCrearCuenta.setActionCommand("CrearCuenta");
-        BotonCrearCuenta.setBounds(890, 10, 350, 50);//x,y,tamaño
-        BotonCrearCuenta.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                //Loguearse= new FrameLoguearse();
-                //Loguearse.setVisible(true);
-            }
-        });
-        
-        add(BotonCrearCuenta);
-        
         JButton boton_cerrar= new JButton(new ImageIcon("CerrarBtn.png"));
         boton_cerrar.setFont(new Font("Aharoni", 1, 32));
         //BotonJugar.setSize(200, 100);
