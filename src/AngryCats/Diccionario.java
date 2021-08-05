@@ -31,6 +31,16 @@ public class Diccionario implements java.io.Serializable {
 
     public static Diccionario CargarDiccionario() throws JuegoException
     {
+        ManejadorDeArchivos manejador = new ManejadorDeArchivos(PATH);
+        Diccionario diccionario = (Diccionario) manejador.CargarObjetoDeArchivo();
+        
+        if(diccionario == null){
+            throw new JuegoException("No hay palabras para adivinar");
+            
+        }else{
+            return diccionario;
+        }
+        
         /*
         miListaDePalabras.add("GARFIELD");
         miListaDePalabras.add("GRUMPYCAT");
@@ -44,16 +54,6 @@ public class Diccionario implements java.io.Serializable {
         miListaDePalabras.add("BONGOCAT");
         
         */
-        
-        ManejadorDeArchivos manejador = new ManejadorDeArchivos(PATH);
-        Diccionario diccionario = (Diccionario) manejador.CargarObjetoDeArchivo();
-        
-        if(diccionario == null){
-            throw new JuegoException("No hay palabras para adivinar");
-            
-        }else{
-            return diccionario;
-        }
 
     }
     
@@ -114,21 +114,9 @@ public class Diccionario implements java.io.Serializable {
         return nuevo;
     }
     */
-    public void quitarPalabra(String nombre)
+    public void quitarPalabra(String palabra_a_quitar)
     {
-
-        boolean encontrada = false;
-
-        for (String palabra : this.miListaDePalabras)
-        {
-            if (nombre.equalsIgnoreCase(palabra))
-            {
-                this.miListaDePalabras.remove(palabra);
-                encontrada = true;
-            }
-        }
-
-        if (encontrada == false)
+        if (!this.miListaDePalabras.remove(palabra_a_quitar))
         {
             System.out.println("La palabra no esta en el diccionario");
         }

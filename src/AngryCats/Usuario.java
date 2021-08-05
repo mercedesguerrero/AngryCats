@@ -15,7 +15,12 @@ public class Usuario {
     private String _password;
     private int _puntaje;
     
-    public Usuario(String nombre, String password, String mail)
+    public Usuario()
+    {
+        
+    }
+    
+    public Usuario(String nombre, String password)
     {
         this._nombreUsuario= nombre;
         this._password= password;

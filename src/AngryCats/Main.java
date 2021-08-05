@@ -26,10 +26,6 @@ public class Main {
         miFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         
-        Jugadores jugadoresAngryCats = new Jugadores();
-        
-        Jugadores.guardarArchivoJugadores(jugadoresAngryCats);
-        
     }
     
 }

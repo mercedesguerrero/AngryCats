@@ -4,8 +4,19 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Angry%20Cats%20V2/AngryCats/src/AngryCats/Usuario.java</file>
+            <file>file:/D:/Angry%20Cats%20V2/AngryCats/src/AngryCats/FrameInicial.java</file>
+            <file>file:/D:/Angry%20Cats%20V2/AngryCats/src/AngryCats/Jugadores.java</file>
+            <file>file:/D:/Angry%20Cats%20V2/AngryCats/src/AngryCats/FrameLoguearse.java</file>
+            <file>file:/D:/Angry%20Cats%20V2/AngryCats/src/AngryCats/LogicLogin.java</file>
+            <file>file:/D:/Angry%20Cats%20V2/AngryCats/src/AngryCats/LogicJuego.java</file>
+            <file>file:/D:/Angry%20Cats%20V2/AngryCats/src/AngryCats/ABM.java</file>
             <file>file:/D:/Angry%20Cats%20V2/AngryCats/src/AngryCats/Main.java</file>
-            <file>file:/D:/Angry%20Cats%20V2/AngryCats/src/AngryCats/Jugar.java</file>
+            <file>file:/D:/Angry%20Cats%20V2/AngryCats/src/AngryCats/ManejadorDeArchivos.java</file>
+            <file>file:/D:/Angry%20Cats%20V2/AngryCats/src/AngryCats/FrameJuego.java</file>
+            <file>file:/D:/Angry%20Cats%20V2/AngryCats/src/AngryCats/VistaJugar.java</file>
+            <file>file:/D:/Angry%20Cats%20V2/AngryCats/src/AngryCats/VistaIniciaJuego.java</file>
+            <file>file:/D:/Angry%20Cats%20V2/AngryCats/src/AngryCats/VistaLogin.java</file>
+            <file>file:/D:/Angry%20Cats%20V2/AngryCats/src/AngryCats/Diccionario.java</file>
         </group>
     </open-files>
 </project-private>

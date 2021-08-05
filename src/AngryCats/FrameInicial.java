@@ -19,7 +19,7 @@ public class FrameInicial extends javax.swing.JFrame {
         setLocationRelativeTo(null); 
         setTitle("AngryCats");
         
-        IniciaJuego miLayer= new IniciaJuego();
+        VistaIniciaJuego miLayer= new VistaIniciaJuego();
         
         add(miLayer);
         

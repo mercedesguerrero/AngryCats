@@ -10,7 +10,7 @@ import java.awt.event.ComponentListener;
  */
 public class FrameLoguearse extends javax.swing.JDialog {
 
-    public FrameLoguearse() {
+    public FrameLoguearse(LogicLogin inicioDeSesion) {
         //super();
         
         setTitle("Jugar Angry Cats");
@@ -19,7 +19,7 @@ public class FrameLoguearse extends javax.swing.JDialog {
         setResizable(false);
         setLocationRelativeTo(null);
         
-        Logueo miLayer= new Logueo();
+        VistaLogin miLayer= new VistaLogin(inicioDeSesion);
         
         
         miLayer.addComponentListener(new ComponentListener()

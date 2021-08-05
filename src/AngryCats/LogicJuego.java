@@ -18,36 +18,44 @@ public class LogicJuego {
     private int _cantFallosPermitidos;
     private String _palabra_a_adivinar;
     private String _palabra_del_usuario;
-    private int _cantAciertos;
+    private int _puntajeAcumulado;
+    private Usuario usuarioLogueado;
+    private Jugadores jugadores;
+    private static final int PUNTAJE_ACIERTO = 50;
+    private static final int PUNTAJE_A_RESTAR_POR_FALLO = 10;
     private int _cuentaErrores; //cantidad de errores que el usuario cometio hasta el momento
     private Diccionario diccionarioCats;
     private int respuesta;
     JTextArea _areaParaIngresarLetra;
-    private final ArrayList<Character> _letrasIngresadasList;
-    private int _juegosGanados;
-    private int _juegosJugados;
+    private ArrayList<Character> _letrasIngresadasList;
+    private int _rondasGanadas;
+    private int _rondasJugadas;
     
-    public LogicJuego()
+    public LogicJuego(Usuario usuario, Jugadores jugadores)
     {
         this._palabra_del_usuario= "";
-        this._cantAciertos= 0;
+        this._puntajeAcumulado = 0;
+        this.usuarioLogueado= usuario;
+        this.jugadores = jugadores;
         this._cuentaErrores= 0;
         this._cantFallosPermitidos= 6;  
-        this._letrasIngresadasList = new ArrayList<>();
-        this._juegosGanados = 0;
-        this._juegosJugados = 0;
-        
+        this._rondasGanadas = 0;
+        this._rondasJugadas = 0;       
     }
     
     public void iniciarJuego()throws JuegoException
     {
         this.diccionarioCats = Diccionario.CargarDiccionario();
-        generarNuevaPalabra();
+        iniciarRonda();
     }
     
-    private void generarNuevaPalabra()throws JuegoException
+    public void iniciarRonda()throws JuegoException
     {    
-        this._palabra_a_adivinar = this.diccionarioCats.getPalabraRandom();   
+        _rondasJugadas += 1;
+        _cuentaErrores = 0;
+        _palabra_a_adivinar = this.diccionarioCats.getPalabraRandom();   
+        System.out.println("Palabra a adivinar: " + this._palabra_a_adivinar);
+        _letrasIngresadasList = new ArrayList<>();
         generarMascara();
     }
 
@@ -69,34 +77,32 @@ public class LogicJuego {
         this._palabra_del_usuario = _palabra_del_usuario;
     }
     
-    public int getJuegosGanados() {
-        return _juegosGanados;
+    public int getPuntajeAcumulado() {
+        return _puntajeAcumulado;
     }
 
-    public void setJuegosGanados(int _juegosGanados) {
-        this._juegosGanados = _juegosGanados;
+    public void setPuntajeAcumulado(int _puntaje) {
+        this._puntajeAcumulado = _puntaje;
+    }
+    
+    public int getRondasGanadas() {
+        return _rondasGanadas;
     }
 
-    public int getJuegosJugados() {
-        return this._juegosJugados;
+    public void setRondasGanadas(int _rondasGanadas) {
+        this._rondasGanadas = _rondasGanadas;
     }
 
-    public void setJuegosJugados(int _juegosJugados) {
-        this._juegosJugados = _juegosJugados;
+    public int getRondasJugadas() {
+        return this._rondasJugadas;
+    }
+
+    public void setRondasJugadas(int _rondasJugadas) {
+        this._rondasJugadas = _rondasJugadas;
     }
 
     public ArrayList<Character> getLetrasIngresadasList() {
         return _letrasIngresadasList;
-    }
-
-    public int getCantAciertos()
-    {
-        return _cantAciertos;
-    }
-
-    public void setCantAciertos(int cantAciertos)
-    {
-        this._cantAciertos = cantAciertos;
     }
 
     public int getCantFallosPermitidos() {
@@ -112,7 +118,7 @@ public class LogicJuego {
     }
 
     public void setCuentaErrores(int error) {
-        this._cuentaErrores += error;
+        this._cuentaErrores = error;
     }
 
     
@@ -171,7 +177,7 @@ public class LogicJuego {
     {
         String caracteres= "";
         System.out.println("Cantidad de letras a adivinar: " + this._palabra_a_adivinar.length());
-        System.out.println("Palabra a adivinar: " + this._palabra_a_adivinar);
+        System.out.println("Numero de ronda: " + this._rondasJugadas + "\nRondas ganadas: " + this._rondasGanadas);
 
         for (int i = 0; i < this._palabra_a_adivinar.length(); i++)
         {
@@ -183,7 +189,7 @@ public class LogicJuego {
 
     public boolean BuscaLetraEnPalabra(char letraIngresada)
     {
-        boolean retorno= false;
+        boolean huboCoincidencia= false;
         
         this.AgregarLetraIngresada(letraIngresada);
         
@@ -201,7 +207,9 @@ public class LogicJuego {
                 }
                 else
                 {
-                    retorno= true;
+                    huboCoincidencia= true;
+                    
+                    _puntajeAcumulado += PUNTAJE_ACIERTO;
                     
                     StringBuilder aux = new StringBuilder(this.getPalabra_del_usuario());
                     aux.setCharAt(i, letraIngresada);
@@ -214,7 +222,15 @@ public class LogicJuego {
             }
         }
         
-        return retorno;
+        if(!huboCoincidencia)
+        {
+            _cuentaErrores += 1;
+            _puntajeAcumulado -= PUNTAJE_A_RESTAR_POR_FALLO;
+        }
+        
+        System.out.println("Puntaje: " + getPuntajeAcumulado());
+            
+        return huboCoincidencia;
     }
     
     public boolean AdivinoLaPalabra()
@@ -224,19 +240,9 @@ public class LogicJuego {
         if(this._palabra_a_adivinar.equalsIgnoreCase(this._palabra_del_usuario))
         {
             retorno= true;
-            System.out.println("GANASTE!!!");
-        }
-        
-        return retorno;
-    }
-    
-    public boolean noQuedanIntentos() 
-    {
-        boolean retorno= false;
-        
-        if (this._cuentaErrores > this._cantFallosPermitidos) 
-        {
-            retorno= true;
+            _rondasGanadas += 1;
+            System.out.println("Adivinaste la palabra!!!");
+            this.NoQuedanIntentos();
         }
         
         return retorno;
@@ -252,5 +258,36 @@ public class LogicJuego {
         
         return retorno;
     }
+    
+    public void NoQuedanIntentos() 
+    {
+        this.diccionarioCats.quitarPalabra(_palabra_a_adivinar);
+        this.diccionarioCats.getMiListaDePalabras().forEach((palabra) -> {
+        System.out.println("Palabra disponible: " + palabra);
+        });
+        
+        ActualizarPuntajeUsuario();
+    }
+    
+    private void ActualizarPuntajeUsuario()
+    {
+        if(usuarioLogueado != null && jugadores != null)
+        {
+            usuarioLogueado.setPuntaje(_puntajeAcumulado);
+            
+            Jugadores.guardarArchivoJugadores(jugadores);
+        }
+    }
+    
+    public void ChequeaPuntaje() 
+    {
+        if(_puntajeAcumulado < 0)
+        {
+            setPuntajeAcumulado(0);
+        }
+    }
+    
+    
+
    
 }

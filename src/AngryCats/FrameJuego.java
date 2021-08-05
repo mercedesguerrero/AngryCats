@@ -10,7 +10,7 @@ import java.awt.event.ComponentListener;
  */
 public class FrameJuego extends javax.swing.JDialog {
 
-    public FrameJuego() {
+    public FrameJuego(LogicJuego logicJuego) {
         //super();
         
         setTitle("Jugar Angry Cats");
@@ -19,7 +19,7 @@ public class FrameJuego extends javax.swing.JDialog {
         setResizable(false);
         setLocationRelativeTo(null);
         
-        VistaJugar miLayer= new VistaJugar();
+        VistaJugar miLayer= new VistaJugar(logicJuego);
         miLayer.iniciarJuego();
         
         
